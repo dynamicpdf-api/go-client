@@ -4,9 +4,7 @@ import (
 	"strconv"
 )
 
-// <summary>
 // Represents a grayscale color.
-// </summary>
 type Grayscalecolor struct {
 	Color
 	grayLevel float64
@@ -18,11 +16,10 @@ func newGrayscalecolor(color string) *Grayscalecolor {
 	return &ep
 }
 
-/// <summary>
-/// Initializes a new instance of the  <see cref="Grayscale"/> class.
-/// </summary>
-/// <param name="grayLevel">The gray level for the color.</param>
-
+/*
+Initializes a new instance of the 'Grayscale' class.
+  - @param {float} grayLevel. The gray level for the color.
+*/
 func NewGrayscalecolor(greyLevel float64) *Grayscalecolor {
 	var ep Grayscalecolor
 	ep.grayLevel = greyLevel
@@ -30,12 +27,12 @@ func NewGrayscalecolor(greyLevel float64) *Grayscalecolor {
 	return &ep
 }
 
-// / <summary>Gets the color black.</summary>
+// Gets the color black.
 func (p *Grayscalecolor) Black() string {
 	return p.colorString
 }
 
-// / <summary>Gets the color white.</summary>
+// Gets the color white.
 func (p *Grayscalecolor) White() string {
 	return p.colorString
 }

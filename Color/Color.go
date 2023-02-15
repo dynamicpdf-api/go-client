@@ -1,8 +1,6 @@
 package color
 
-/*
- * Base class representing a color.
- */
+// Base class representing a color.
 type Color struct {
 	colorString string
 }

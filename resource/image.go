@@ -5,18 +5,18 @@ import (
 )
 
 /*
- * Represents an image resource used to create an `ImageResource`
- * object to create PDF from images.
- */
+Represents an image resource used to create an `ImageResource`
+object to create PDF from images.
+*/
 type ImageResource struct {
 	Resource
 }
 
-/**
- * Initializes a new instance of the `ImageResource` class.
- * @param {string} filePath The image file path.
- * @param {string} resourceName The name of the resource.
- */
+/*
+Initializes a new instance of the `ImageResource` class.
+  - @param {string} filePath The image file path.
+  - @param {string} resourceName The name of the resource.
+*/
 func NewImageResourceWithResourcePath(resource string, resourceName string) ImageResource {
 	var ep ImageResource
 	ep.typeOfResource = ep.ResourceType()
@@ -24,11 +24,11 @@ func NewImageResourceWithResourcePath(resource string, resourceName string) Imag
 	return ep
 }
 
-/**
- * Initializes a new instance of the `ImageResource` class.
- * @param {Byte[]} The byte array of the image file.
- * @param {string} resourceName The name of the resource.
- */
+/*
+Initializes a new instance of the `ImageResource` class.
+  - @param {Byte[]} The byte array of the image file.
+  - @param {string} resourceName The name of the resource.
+*/
 func NewImageResourceWithByteValue(resource []byte, resourceName string) ImageResource {
 	var ep ImageResource
 	ep.typeOfResource = ep.ResourceType()

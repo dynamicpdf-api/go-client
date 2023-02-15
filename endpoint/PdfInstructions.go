@@ -8,7 +8,7 @@ import (
 	"github.com/dynamicpdf-api/go-client/input"
 )
 
-/* Represents the pdf information. */
+// Represents the pdf information.
 type PdfInstruction struct {
 	author                    string
 	subject                   string

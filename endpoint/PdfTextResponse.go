@@ -6,20 +6,18 @@ import (
 	"github.com/google/uuid"
 )
 
-/* Represnts the pdf resource. */
+// Represnts the pdf resource.
 type PdfTextResponse struct {
 	JsonResponse
 }
 
-/**
- * Initializes a new instance of the `PdfResponse` class.
- */
+// Initializes a new instance of the `PdfResponse` class.
 func NewPdfTextResponse() *PdfTextResponse {
 	var ep PdfTextResponse
 	return &ep
 }
 
-/** Gets the collection of PdfContent. */
+// Gets the collection of PdfContent.
 func (pr *PdfTextResponse) Content() *bytes.Buffer {
 	return pr.content
 }

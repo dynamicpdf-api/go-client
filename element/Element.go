@@ -7,7 +7,7 @@ import (
 	"github.com/dynamicpdf-api/go-client/resource"
 )
 
-/** Base class from which all page elements are derived. */
+// Base class from which all page elements are derived.
 type ElementCollector interface {
 	InputValue() string
 	ElementType() ElementType
@@ -16,15 +16,15 @@ type ElementCollector interface {
 }
 type Element struct {
 	ElementCollector `json:"-"`
-	/** Gets and sets placement of the page element on the page. */
+	// Gets and sets placement of the page element on the page.
 	Placement elementPlacement `json:"placement,omitempty"`
-	/**Gets or sets the X coordinate of the page element. */
+	// Gets or sets the X coordinate of the page element.
 	XOffset float32 `json:"xOffset,omitempty"`
-	/** Gets or sets the Y coordinate of the page element. */
+	// Gets or sets the Y coordinate of the page element.
 	YOffset float32 `json:"yOffset,omitempty"`
-	/** Gets or sets the boolean value specifying whether the element should be added to even pages or not. */
+	// Gets or sets the boolean value specifying whether the element should be added to even pages or not.
 	EvenPages bool `json:"evenPages,omitempty"`
-	/** Gets or sets the boolean value specifying whether the element should be added to odd pages or not. */
+	// Gets or sets the boolean value specifying whether the element should be added to odd pages or not.
 	OddPages bool `json:"oddPages,omitempty"`
 
 	grayLevel                   int

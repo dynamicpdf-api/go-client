@@ -8,22 +8,20 @@ import (
 	"github.com/dynamicpdf-api/go-client/resource"
 )
 
-/**
- * Represents a Dlex layout endpoint.
- */
+// Represents a Dlex layout endpoint.
 type Dlex struct {
 	Endpoint `json:"-"` // This will bekipped in JSON
 
 	resource resource.LayoutDataResource
-	/** Gets or sets the DLEX file path present in the resource manager. */
 
+	// Gets or sets the DLEX file path present in the resource manager.
 	DlexPath string `json:"dlexPath,omitempty"`
 }
 
 /*
-*
-  - Initializes a new instance of the <see cref="DlexLayout"/> class using the
-    DLEX file path present in the cloud environment and the JSON data for the PDF report.
+	Initializes a new instance of the <see cref="DlexLayout"/> class using the
+
+DLEX file path present in the cloud environment and the JSON data for the PDF report.
   - @param {string} cloudDlexPath The DLEX file path present in the resource manager
   - @param {LayoutDataResource} layoutData The `LayoutDataResource` json data file used to create the PDF report.
 */
@@ -48,10 +46,10 @@ func (p *Dlex) EndpointName() string {
 	return "dlex-layout"
 }
 
-/**
- * Process the DLEX and layout data to create PDF report.
- * @returns A Promise of DlexResponse callback.
- */
+/*
+Process the DLEX and layout data to create PDF report.
+  - @returns A Promise of DlexResponse callback.
+*/
 func (p *Dlex) Process() <-chan PdfResponse {
 	retResponse := make(chan PdfResponse)
 

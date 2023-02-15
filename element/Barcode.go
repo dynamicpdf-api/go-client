@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 )
 
-/**Base class from which barcode page elements are derived. */
+// Base class from which barcode page elements are derived.
 type Barcode struct {
 	Element
 	color color.Color
@@ -21,33 +21,33 @@ func NewBarcodeWithStringValue(value string, placement elementPlacement, xOffset
 	return &p
 }
 
-/** gets the Color of the barcode. */
+// gets the Color of the barcode.
 func (p *Barcode) Color() color.Color {
 	return p.color
 }
 
-/** sets the Color of the barcode.*/
+// sets the Color of the barcode.
 func (p *Barcode) SetColor(value color.Color) {
 	p.color = value
 	p.colorName = p.color.ColorString()
 }
 
-/** Gets the XDimension of the barcode. */
+// Gets the XDimension of the barcode.
 func (p *Barcode) XDimension() float32 {
 	return p.xDimension
 }
 
-/** Sets the XDimension of the barcode. */
+// Sets the XDimension of the barcode.
 func (p *Barcode) SetXDimension(value float32) {
 	p.xDimension = value
 }
 
-/** Gets the value of the barcode. */
+// Gets the value of the barcode.
 func (p *Barcode) Value() string {
 	return p.textValue
 }
 
-/** sets the value of the barcode. */
+// sets the value of the barcode.
 func (p *Barcode) SetValue(value string) {
 	p.textValue = value
 }

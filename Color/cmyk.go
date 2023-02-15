@@ -4,7 +4,7 @@ import (
 	"strconv"
 )
 
-/** Represents a CMYK color. */
+// Represents a CMYK color.
 type CmykColor struct {
 	Color
 	cyan    float64
@@ -13,13 +13,13 @@ type CmykColor struct {
 	black   float64
 }
 
-/**
- * Initializes a new instance of the "CmykColor"
- * @param {float} cyan The cyan intensity.
- * @param {float} magenta The magenta intensity.
- * @param {float} yellow The yellow intensity.
- * @param {float} black The black intensity.     *
- */
+/*
+Initializes a new instance of the 'CmykColor'
+  - @param {float} cyan. The cyan intensity.
+  - @param {float} magenta. The magenta intensity.
+  - @param {float} yellow. The yellow intensity.
+  - @param {float} black. The black intensity.
+*/
 func NewCmykColor(cyan float64, magenta float64, yellow float64, black float64) *CmykColor {
 	var p CmykColor
 	p.cyan = cyan
@@ -30,13 +30,13 @@ func NewCmykColor(cyan float64, magenta float64, yellow float64, black float64) 
 	return &p
 }
 
-/** Gets the color black. */
+// Gets the color black.
 func (p *CmykColor) Black() *CmykColor {
 	n := NewCmykColor(1, 1, 1, 1)
 	return n
 }
 
-/** Gets the color white. */
+// Gets the color white.
 func (p *CmykColor) White() *CmykColor {
 	n := NewCmykColor(0, 0, 0, 0)
 	return n

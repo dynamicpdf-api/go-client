@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-/**Represents the base class for json response. */
+// Represents the base class for json response.
 type JsonResponse struct {
 	Response
 	clientError   error

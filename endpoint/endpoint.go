@@ -20,9 +20,10 @@ var (
 	pkgLog log.Logger = *log.New(io.Discard, "PKG_LOG: ", 0)
 )
 
-/** Represents the base class for endpoint and has settings for base url,
- * api key and creates a rest request object.
- */
+/*
+Represents the base class for endpoint and has settings for base url,
+api key and creates a rest request object.
+*/
 type EndpointProcessor interface {
 	EndpointName() string
 	BaseUrl() string

@@ -6,14 +6,14 @@ type Code93Barcode struct {
 
 var _ ElementCollector = (*Code93Barcode)(nil)
 
-/**
- * Initializes a new instance of the `Code93BarcodeElement` class.
- * @param {string} value The value of the barcode.
- * @param {ElementPlacement} placement The placement of the barcode on the page.
- * @param {number} height The height of the barcode.
- * @param {number} xOffset The X coordinate of the barcode.
- * @param {number} yOffset The Y coordinate of the barcode.
- */
+/*
+Initializes a new instance of the `Code93BarcodeElement` class.
+  - @param {string} value. The value of the barcode.
+  - @param {ElementPlacement} placement. The placement of the barcode on the page.
+  - @param {number} height. The height of the barcode.
+  - @param {number} xOffset. The X coordinate of the barcode.
+  - @param {number} yOffset. The Y coordinate of the barcode.
+*/
 func NewCode93Barcode(value string, placement elementPlacement, height float32, xOffset float32, yOffset float32) *Code93Barcode {
 	var p = Code93Barcode{TextBarcode: *NewTextBarcode(value, placement, xOffset, yOffset)}
 	p.typeOfElement = p.ElementType()
@@ -21,12 +21,12 @@ func NewCode93Barcode(value string, placement elementPlacement, height float32, 
 	return &p
 }
 
-/** Gets the height of the barcode. */
+// Gets the height of the barcode.
 func (p *Code93Barcode) Height() float32 {
 	return p.height
 }
 
-/**sets the height of the barcode. */
+// sets the height of the barcode.
 func (p *Code93Barcode) SetHeight(value float32) {
 	p.height = value
 }

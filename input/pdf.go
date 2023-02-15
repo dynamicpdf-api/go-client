@@ -8,16 +8,14 @@ import (
 	"github.com/google/uuid"
 )
 
-/**
- * Represents a pdf input.
- */
+// Represents a pdf input.
 type Pdf struct {
 	Input
-	/**Gets or sets the start page. */
+	// Gets or sets the start page.
 	StartPage int `json:"startPage"` /*TODO:Nullability*/
-	/** Gets or sets the page count.*/
+	// Gets or sets the page count.
 	PageCount int `json:"pageCount"` /*TODO:Nullability*/
-	/**Gets or sets the merge options `MergeOptions` */
+	// Gets or sets the merge options `MergeOptions`
 	MergeOption MergeOptions `json:"mergeOptions"` /*TODO:Type*/
 	pdfresource []resource.PdfResource
 	Elements    []element.ElementCollector `json:"elements"` /*TODO:Type*/
@@ -26,11 +24,11 @@ type Pdf struct {
 var _ InputCollector = (*Pdf)(nil)
 var _ json.Marshaler = (*Pdf)(nil)
 
-/**
- * Initializes a new instance of the `PdfInput` class.
- * @param { string } The resource path in cloud resource manager.
- * @param {MergeOptions} mergeOptions The merge options for the pdf.
- */
+/*
+Initializes a new instance of the `PdfInput` class.
+  - @param { string } The resource path in cloud resource manager.
+  - @param {MergeOptions} mergeOptions The merge options for the pdf.
+*/
 func NewPdfWithCloudPath(cloudResourcePath string, option MergeOptions) *Pdf {
 	var p Pdf
 	p.Elements = []element.ElementCollector{}
@@ -40,11 +38,11 @@ func NewPdfWithCloudPath(cloudResourcePath string, option MergeOptions) *Pdf {
 	return &p
 }
 
-/**
- * Initializes a new instance of the `PdfInput` class.
- * @param { PdfResource} resource The resource of type `PdfResource`.
- * @param {MergeOptions} mergeOptions The merge options for the pdf.
- */
+/*
+Initializes a new instance of the `PdfInput` class.
+  - @param { PdfResource} resource The resource of type `PdfResource`.
+  - @param {MergeOptions} mergeOptions The merge options for the pdf.
+*/
 func NewPdfWithResource(resource resource.PdfResource) *Pdf {
 	var p Pdf
 	p.SetId(uuid.NewString())
@@ -54,11 +52,11 @@ func NewPdfWithResource(resource resource.PdfResource) *Pdf {
 	return &p
 }
 
-/**
- * Initializes a new instance of the `PdfInput` class.
- * @param { PdfResource} resource The resource of type `PdfResource`.
- * @param {MergeOptions} mergeOptions The merge options for the pdf.
- */
+/*
+Initializes a new instance of the `PdfInput` class.
+  - @param { PdfResource} resource The resource of type `PdfResource`.
+  - @param {MergeOptions} mergeOptions The merge options for the pdf.
+*/
 func NewPdfWithResourceWithMergerOption(resource resource.PdfResource, option MergeOptions) *Pdf {
 	var p Pdf
 	p.SetId(uuid.NewString())

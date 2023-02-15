@@ -1,9 +1,9 @@
 package element
 
-/**
- * Represents a Code 3 of 9 barcode element.
- * This class can be used to place a Code 3 of 9 barcode on a page.
- */
+/*
+ Represents a Code 3 of 9 barcode element.
+This class can be used to place a Code 3 of 9 barcode on a page.
+*/
 type Code39Barcode struct {
 	TextBarcode
 }
@@ -17,12 +17,12 @@ func NewCode39Barcode(value string, placement elementPlacement, height float32, 
 	return &p
 }
 
-/** Gets the height of the barcode. */
+// Gets the height of the barcode.
 func (p *Code39Barcode) Height() float32 {
 	return p.height
 }
 
-/**sets the height of the barcode. */
+// sets the height of the barcode.
 func (p *Code39Barcode) SetHeight(value float32) {
 	p.height = value
 }

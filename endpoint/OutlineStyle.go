@@ -2,20 +2,19 @@ package endpoint
 
 type OutlineStyle int
 
-/**
- * Specifies horizontal alignment. Center alignment is the default value for alignments.
- */
+// Specifies horizontal alignment. Center alignment is the default value for alignments.
+
 const (
 
-	/*Bold. */
+	// Bold.
 	Bold OutlineStyle = 0
 
-	/* BoldItalic. */
+	// BoldItalic.
 	BoldItalic OutlineStyle = 1
 
-	/* Italic. */
+	// Italic.
 	Italic OutlineStyle = 2
 
-	/* Regular. */
+	// Regular.
 	Regular OutlineStyle = 3
 )

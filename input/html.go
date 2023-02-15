@@ -5,9 +5,7 @@ import (
 	"github.com/google/uuid"
 )
 
-/**
- * Represents a HTML input.
- */
+// Represents a HTML input.
 type Html struct {
 	Input
 	smaller float32
@@ -16,10 +14,10 @@ type Html struct {
 
 var _ InputCollector = (*Html)(nil)
 
-/**
- * Initializes a new instance of the `HTMLInput` class.
- * @param { string} input The html embeded as a string.
- */
+/*
+Initializes a new instance of the `HTMLInput` class.
+  - @param { string} input The html embeded as a string.
+*/
 func NewHtmlInputWithString(inputString string) *Html {
 	var p Html
 	var ep resource.HtmlResource
@@ -35,10 +33,10 @@ func NewHtmlInputWithString(inputString string) *Html {
 	return &p
 }
 
-/**
- * Initializes a new instance of the `HTMLInput` class.
- * @param { string} input The html embeded as a string.
- */
+/*
+Initializes a new instance of the `HTMLInput` class.
+  - @param { string} input The html embeded as a string.
+*/
 func NewHtmlInputWithResource(resource resource.HtmlResource) *Html {
 	var p Html
 	p.resources = append(p.resources, resource.Resource)
@@ -59,82 +57,82 @@ func (p *Html) InputType() InputType {
 	return HtmlInput
 }
 
-/** Gets the pageWidth. */
+// Gets the pageWidth.
 func (p *Html) PageWidth() float32 {
 	return p.pageWidth
 }
 
-/** sets the pageWidth. */
+// sets the pageWidth.
 func (p *Html) SetPageWidth(value float32) {
 	p.pageWidth = value
 }
 
-/** Gets the PageHeight. */
+// Gets the PageHeight.
 func (p *Html) PageHeight() float32 {
 	return p.pageHeight
 }
 
-/** sets the PageHeight. */
+// sets the PageHeight.
 func (p *Html) SetPageHeight(value float32) {
 	p.pageHeight = value
 }
 
-/** Gets the BasePath. */
+// Gets the BasePath.
 func (p *Html) BasePath() string {
 	return p.basePath
 }
 
-/** sets the BasePath. */
+// sets the BasePath.
 func (p *Html) SetBasePath(value string) {
 	p.basePath = value
 }
 
-/** Gets the TopMargin. */
+// Gets the TopMargin.
 func (p *Html) TopMargin() float32 {
 	return p.topMargin
 }
 
-/** sets the TopMargin. */
+// sets the TopMargin.
 func (p *Html) SetTopMargin(value float32) {
 	p.topMargin = value
 }
 
-/** Gets the BottomMargin. */
+// Gets the BottomMargin.
 func (p *Html) BottomMargin() float32 {
 	return p.bottomMargin
 }
 
-/** sets the BottomMargin. */
+// sets the BottomMargin.
 func (p *Html) SetBottomMargin(value float32) {
 	p.bottomMargin = value
 }
 
-/** Gets the LeftMargin. */
+// Gets the LeftMargin.
 func (p *Html) LeftMargin() float32 {
 	return p.leftMargin
 }
 
-/** sets the LeftMargin. */
+// sets the LeftMargin.
 func (p *Html) SetLeftMargin(value float32) {
 	p.leftMargin = value
 }
 
-/** Gets the RightMargin. */
+// Gets the RightMargin.
 func (p *Html) RightMargin() float32 {
 	return p.rightMargin
 }
 
-/** sets the RightMargin. */
+// sets the RightMargin.
 func (p *Html) SetRightMargin(value float32) {
 	p.rightMargin = value
 }
 
-/** Gets the PageSize. */
+// Gets the PageSize.
 func (p *Html) PageSize() PageSize {
 	return p.pageSize
 }
 
-/** sets the PageSize. */
+// sets the PageSize.
 func (p *Html) SetPageSize(value PageSize) {
 	p.pageSize = value
 	p.getPaperSize(value)
@@ -145,12 +143,12 @@ func (p *Html) SetPageSize(value PageSize) {
 	p.pageWidth = p.smaller
 }
 
-/** Gets the PageOrientation. */
+// Gets the PageOrientation.
 func (p *Html) PageOrientation() Orientation {
 	return p.pageOrientation
 }
 
-/** sets the PageOrientation. */
+// sets the PageOrientation.
 func (p *Html) SetPageOrientation(value Orientation) {
 	p.pageOrientation = value
 	if p.pageOrientation == Landscape {

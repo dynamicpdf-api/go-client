@@ -3,57 +3,57 @@ package element
 type ElementType string
 
 const (
-	/*Text element.*/
+	// Text element.
 	TextElement ElementType = "Text"
 
-	/*Image element.*/
+	// Image element.
 	ImageElement ElementType = "Image"
 
-	/*Code 128 barcode element.*/
+	// Code 128 barcode element.
 	Code128BarcodeElement ElementType = "Code128Barcode"
 
-	/*Code 39 barcode element.*/
+	// Code 39 barcode element.
 	Code39BarcodeElement ElementType = "Code39Barcode"
 
-	/*Code 2 of 5 barcode element.*/
+	// Code 2 of 5 barcode element.
 	Code25BarcodeElement ElementType = "Code25Barcode"
 
-	/*Code 93 barcode element.*/
+	// Code 93 barcode element.
 	Code93BarcodeElement ElementType = "Code93Barcode"
 
-	/*Code 11 barcode element.*/
+	// Code 11 barcode element.
 	Code11BarcodeElement ElementType = "Code11Barcode"
 
-	/*GS1 data bar barcode element.*/
+	// GS1 data bar barcode element.
 	Gs1DataBarBarcodeElement ElementType = "Gs1DataBarBarcode"
 
-	/*IATA 25 barcode element.*/
+	// IATA 25 barcode element.
 	Iata25BarcodeElement ElementType = "Iata25Barcode"
 
-	/*MSI barcode element.*/
+	// MSI barcode element.
 	MsiBarcodeElement ElementType = "MsiBarcode"
 
-	/*Stacked GS1 data bar barcode element.*/
+	// Stacked GS1 data bar barcode element.
 	StackedGs1DataBarBarcodeElement ElementType = "StackedGs1DataBarBarcode"
 
-	/*Aztec barcode element.*/
+	// Aztec barcode element.
 	AztecBarcodeElement ElementType = "AztecBarcode"
 
-	/*Data Matrix barcode element.*/
+	// Data Matrix barcode element.
 	DataMatrixBarcodeElement ElementType = "DataMatrixBarcode"
 
-	/*Pdf417 barcode*/
+	// Pdf417 barcode
 	Pdf417BarcodeElement ElementType = "Pdf417Barcode"
 
-	/*Qrcode barcode*/
+	// Qrcode barcode
 	QrCodeElement ElementType = "QrCode"
 
-	/*PageNumbering Element*/
+	// PageNumbering Element
 	PageNumberingElement ElementType = "PageNumbering"
 
-	/*Line Element*/
+	// Line Element
 	LineElement ElementType = "Line"
 
-	/*Rectangle Element*/
+	// Rectangle Element
 	RectangleElement ElementType = "Rectangle"
 )

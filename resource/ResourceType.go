@@ -3,16 +3,16 @@ package resource
 type ResourceType int
 
 const (
-	/*Image resource. */
+	// Image resource.
 	ImageResourceType ResourceType = 0
-	/** Pdf resource. */
+	// Pdf resource.
 	PdfResourceType ResourceType = 1
-	/** LayoutData resource.*/
+	// LayoutData resource.
 	LayoutDataResourceType ResourceType = 2
-	/** Dlex resource. */
+	// Dlex resource.
 	DlexResourceType ResourceType = 3
-	/** Font resource. */
+	// Font resource.
 	FontResourceType ResourceType = 4
-	/** Html resource */
+	// Html resource
 	HtmlResourceType ResourceType = 5
 )

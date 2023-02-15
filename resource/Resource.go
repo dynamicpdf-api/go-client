@@ -7,9 +7,9 @@ import (
 	"os"
 )
 
-/** Represents the base class resource. */
+// Represents the base class resource.
 type Resource struct {
-	/**Gets or sets the resource name. */
+	// Gets or sets the resource name.
 	ResourceName           string `json:"resourceName,omitempty"`
 	LayoutDataResourceName string `json:"layoutDataResourceName,omitempty"`
 	filepath1              string

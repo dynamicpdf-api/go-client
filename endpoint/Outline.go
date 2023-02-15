@@ -7,18 +7,18 @@ import (
 	"github.com/dynamicpdf-api/go-client/input"
 )
 
-/**Represents an outline. */
+// Represents an outline.
 type Outline struct {
-	/* Gets or sets the text of the outline. */
+	// Gets or sets the text of the outline.
 	Text string `json:"text,omitempty"`
 
-	/* Gets or sets a value specifying if the outline is expanded. */
+	// Gets or sets a value specifying if the outline is expanded.
 	Expanded bool `json:"expanded,omitempty"`
 
-	/* Gets or sets the style of the outline. */
+	// Gets or sets the style of the outline.
 	Style OutlineStyle `json:"style,omitempty"`
 
-	/* Gets or sets the Action of the outline. */
+	// Gets or sets the Action of the outline.
 	linkTo Action
 
 	fromInputID string
@@ -52,22 +52,22 @@ func newOutlineWithAction(text string, action Action) *Outline {
 	return &ep
 }
 
-/** Gets the Action of the outline. */
+// Gets the Action of the outline.
 func (p *Outline) Action() Action {
 	return p.linkTo
 }
 
-/** Sets the color of the outline. */
+// Sets the color of the outline.
 func (p *Outline) setAction(value Action) {
 	p.linkTo = value
 }
 
-/** Gets the color of the outline. */
+// Gets the color of the outline.
 func (p *Outline) Color() color.Color {
 	return p.color
 }
 
-/** sets the color of the outline. */
+// sets the color of the outline.
 func (p *Outline) SetColor(value color.Color) {
 	p.color = value
 	p.colorName = p.color.ColorString()
@@ -78,7 +78,7 @@ func (p *Outline) Children() OutlineList {
 	return p.children
 }
 
-/** Gets a collection of child outlines. */
+// Gets a collection of child outlines.
 func (p *Outline) GetChildren() []Outline {
 	if len(p.children.outlinesList) > 0 {
 		return p.children.outlinesList

@@ -7,19 +7,17 @@ import (
 	"github.com/dynamicpdf-api/go-client/resource"
 )
 
-/**
- * Represents the pdf info endpoint.
- */
+// Represents the pdf info endpoint.
 type PdfInfo struct {
 	Endpoint
 	resource.Resource
 	resource resource.PdfResource
 }
 
-/**
- * Initializes a new instance of the `PdfInfo` class.
- * @param {Resource} resource The resource of type `PdfResource`
- */
+/*
+Initializes a new instance of the `PdfInfo` class.
+  - @param {Resource} resource The resource of type `PdfResource`
+*/
 func NewPdfInfoResource(resource resource.PdfResource) *PdfInfo {
 	var ep PdfInfo
 	ep.resource = resource
@@ -40,10 +38,10 @@ func (p *PdfInfo) EndpointName() string {
 	return "pdf-info"
 }
 
-/**
- * Process the pdf resource to get pdf's information.
- * @returns A Promise of PdfInfo response
- */
+/*
+Process the pdf resource to get pdf's information.
+  - @returns A Promise of PdfInfo response
+*/
 func (p *PdfInfo) Process() <-chan PdfInfoResponse {
 	restResponse := make(chan PdfInfoResponse)
 	postUrl := strings.TrimSuffix(p.Endpoint.BaseUrl, "/") + "/v1.0/" + p.EndpointName()

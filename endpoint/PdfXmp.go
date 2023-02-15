@@ -7,17 +7,17 @@ import (
 	"github.com/dynamicpdf-api/go-client/resource"
 )
 
-/* Represents the pdfresource. */
+// Represents the pdfresource.
 type PdfXmp struct {
 	Endpoint
 
 	resource resource.PdfResource
 }
 
-/**
- * Initializes a new instance of the `PdfXmp` class.
- * @param {PdfResource} resource The image resource of type `PdfResource`.
- */
+/*
+Initializes a new instance of the `PdfXmp` class.
+  - @param {PdfResource} resource The image resource of type `PdfResource`.
+*/
 func NewPdfXmp(resource resource.PdfResource) *PdfXmp {
 	var ep PdfXmp
 	ep.resource = resource
@@ -38,9 +38,10 @@ func (p *PdfXmp) EndpointName() string {
 	return "pdf-xmp"
 }
 
-/**  Process the pdf resource to get pdf's xmp data.
- * @returns A Promise of PdfTextResponse callback.
- */
+/*
+Process the pdf resource to get pdf's xmp data.
+  - @returns A Promise of PdfTextResponse callback.
+*/
 func (p *PdfXmp) Process() <-chan PdfXmpResponse {
 	restResponse := make(chan PdfXmpResponse)
 	postUrl := strings.TrimSuffix(p.Endpoint.BaseUrl, "/") + "/v1.0/" + p.EndpointName()

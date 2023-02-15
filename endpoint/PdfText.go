@@ -8,7 +8,7 @@ import (
 	"github.com/dynamicpdf-api/go-client/resource"
 )
 
-/** Represents the pdf text endpoint.*/
+// Represents the pdf text endpoint.
 type PdfText struct {
 	Endpoint
 
@@ -19,12 +19,12 @@ type PdfText struct {
 	pageCount int
 }
 
-/**
- * Initializes a new instance of the `PdfText` class.
- * @param { PdfResource } resource The image resource of type `PdfResource`.`
- * @param { int } startPage The start page.
- * @param { int } pageCount The page count.
- */
+/*
+Initializes a new instance of the `PdfText` class.
+  - @param { PdfResource } resource The image resource of type `PdfResource`.`
+  - @param { int } startPage The start page.
+  - @param { int } pageCount The page count.
+*/
 func NewPdfText(resource resource.PdfResource, startpage int, pagecount int) *PdfText {
 	var ep PdfText
 	ep.resource = resource
@@ -43,22 +43,22 @@ func (p *PdfText) ApiKey() string {
 	return p.Endpoint.ApiKey
 }
 
-/** Gets the start page. */
+// Gets the start page.
 func (p *PdfText) StartPage() int {
 	return p.startPage
 }
 
-/** Sets the start page. */
+// Sets the start page.
 func (p *PdfText) GetStartPage(startPage int) {
 	p.startPage = startPage
 }
 
-/** Gets the page count. */
+// Gets the page count.
 func (p *PdfText) PageCount() int {
 	return p.pageCount
 }
 
-/** Sets the page count. */
+// Sets the page count.
 func (p *PdfText) GetPageCount(pageCount int) {
 	p.pageCount = pageCount
 }
@@ -66,9 +66,10 @@ func (p *PdfText) EndpointName() string {
 	return "pdf-text"
 }
 
-/**Process the pdf resource to get pdf's text.
- * @returns A Promise of PdfTextResponse callback.
- */
+/*
+Process the pdf resource to get pdf's text.
+  - @returns A Promise of PdfTextResponse callback.
+*/
 func (p *PdfText) Process() <-chan PdfTextResponse {
 	restResponse := make(chan PdfTextResponse)
 	postUrl := strings.TrimSuffix(p.Endpoint.BaseUrl, "/") + "/v1.0/" + p.EndpointName()

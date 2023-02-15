@@ -6,21 +6,21 @@ import (
 	"github.com/google/uuid"
 )
 
-/* Represnts the pdf resource. */
+// Represnts the pdf resource.
 type PdfXmpResponse struct {
 	JsonResponse
 }
 
-/**
- * Initializes a new instance of the `XmlResponse` class.
- * @param {string} xmlContent The xml content of the response.
- */
+/*
+Initializes a new instance of the `XmlResponse` class.
+  - @param {string} xmlContent The xml content of the response.
+*/
 func NewPdfXmpResponse() *PdfXmpResponse {
 	var ep PdfXmpResponse
 	return &ep
 }
 
-/** Gets the xml content. */
+// Gets the xml content.
 func (pr *PdfXmpResponse) Content() *bytes.Buffer {
 	return pr.content
 }

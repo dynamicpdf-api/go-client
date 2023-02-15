@@ -6,10 +6,11 @@ import (
 	"github.com/dynamicpdf-api/go-client/color"
 )
 
-/**
- * Represents a line page element.
- * This class can be used to place lines of different length, width, color and patterns on a page.
- */
+/*
+	Represents a line page element.
+
+This class can be used to place lines of different length, width, color and patterns on a page.
+*/
 type Line struct {
 	Element
 
@@ -21,12 +22,12 @@ type Line struct {
 var _ ElementCollector = (*Line)(nil)
 var _ json.Marshaler = (*Line)(nil)
 
-/**
- * Initializes a new instance of the `LineElement` class.
- * @param {ElementPlacement} placement The placement of the line on the page.
- * @param {float} x2Offset X2 coordinate of the line.
- * @param {float} y2Offset Y2 coordinate of the line.
- */
+/*
+Initializes a new instance of the `LineElement` class.
+  - @param {ElementPlacement} placement The placement of the line on the page.
+  - @param {float} x2Offset X2 coordinate of the line.
+  - @param {float} y2Offset Y2 coordinate of the line.
+*/
 func NewLine(placement elementPlacement, xOffSet float32, yOffSet float32) *Line {
 	var p Line
 	p.typeOfElement = p.ElementType()
@@ -59,32 +60,32 @@ func (p *Line) SetLineStyle(value LineStyle) {
 	p.lineStyleName = value.lineStyleString
 }
 
-/** Gets the X2 coordinate of the line. */
+// Gets the X2 coordinate of the line.
 func (p *Line) X2Offset() float32 {
 	return p.x2Offset
 }
 
-/** Sets the X2 coordinate of the line. */
+// Sets the X2 coordinate of the line.
 func (p *Line) SetX2Offset(value float32) {
 	p.x2Offset = value
 }
 
-/*Sets the X2 coordinate of the line. */
+// Sets the X2 coordinate of the line.
 func (p *Line) Y2Offset() float32 {
 	return p.y2Offset
 }
 
-/*sets the X2 coordinate of the line. */
+// sets the X2 coordinate of the line.
 func (p *Line) SetY2Offset(value float32) {
 	p.y2Offset = value
 }
 
-/** Gets the width of the line. */
+// Gets the width of the line.
 func (p *Line) Width() float32 {
 	return p.width
 }
 
-/** Sets the width of the line. */
+// Sets the width of the line.
 func (p *Line) SetWidth(value float32) {
 	p.width = value
 }

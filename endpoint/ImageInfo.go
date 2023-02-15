@@ -8,18 +8,16 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 )
 
-/**
- * Represents an image information endpoint.
- */
+// Represents an image information endpoint.
 type ImageInfo struct {
 	Endpoint
 	resource resource.ImageResource
 }
 
-/**
- * Initializes a new instance of the `ImageInfo` class.
- * @param {ImageResource} resource The image resource of type `ImageResource`.
- */
+/*
+Initializes a new instance of the `ImageInfo` class.
+  - @param {ImageResource} resource The image resource of type `ImageResource`.
+*/
 func NewImageInfo(image resource.ImageResource) *ImageInfo {
 	var ep ImageInfo
 	ep.resource = image
@@ -40,10 +38,10 @@ func (p *ImageInfo) EndpointName() string {
 	return "image-info"
 }
 
-/**
- * Process the image resource to get image's information.
- * @returns A Promise of ImageResponse callback.
- */
+/*
+Process the image resource to get image's information.
+  - @returns A Promise of ImageResponse callback.
+*/
 func (p *ImageInfo) Process() <-chan ImageResponse {
 	restResponse := make(chan ImageResponse)
 	postUrl := strings.TrimSuffix(p.Endpoint.BaseUrl, "/") + "/v1.0/" + p.EndpointName()

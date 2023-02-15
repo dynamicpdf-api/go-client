@@ -8,7 +8,7 @@ import (
 	"github.com/google/uuid"
 )
 
-/** Represents the base class for inputs. */
+// Represents the base class for inputs.
 type InputCollector interface {
 	InputType() InputType
 	Template() element.Template
@@ -50,12 +50,12 @@ func newInputWithResource(resource resource.Resource) *Input {
 	return &p
 }
 
-/** Gets the template. */
+// Gets the template.
 func (p *Input) Template() element.Template {
 	return p.templateId
 }
 
-/** Sets the template. */
+// Sets the template.
 func (p *Input) SetTemplate(temp element.Template) {
 	p.templateId = temp
 	p.template_ID = temp.Id
@@ -81,42 +81,42 @@ func (p *Input) SetId(value string) {
 	p.id = value
 }
 
-/** Gets the top margin. */
+// Gets the top margin.
 func (p *Input) TopMargin() float32 {
 	return p.topMargin
 }
 
-/** sets the top margin. */
+// sets the top margin.
 func (p *Input) SetTopMargin(value float32) {
 	p.topMargin = value
 }
 
-/** Gets the bottom margin. */
+// Gets the bottom margin.
 func (p *Input) BottomMargin() float32 {
 	return p.bottomMargin
 }
 
-/** sets the bottom margin. */
+// sets the bottom margin.
 func (p *Input) SetBottomMargin(value float32) {
 	p.bottomMargin = value
 }
 
-/** Gets the left margin. */
+// Gets the left margin.
 func (p *Input) LeftMargin() float32 {
 	return p.leftMargin
 }
 
-/** sets the left margin. */
+// sets the left margin.
 func (p *Input) SetLeftMargin(value float32) {
 	p.leftMargin = value
 }
 
-/** Gets the right margin. */
+// Gets the right margin.
 func (p *Input) RightMargin() float32 {
 	return p.rightMargin
 }
 
-/** sets the right margin. */
+// sets the right margin.
 func (p *Input) SetRightMargin(value float32) {
 	p.rightMargin = value
 }

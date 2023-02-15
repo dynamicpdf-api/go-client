@@ -1,6 +1,6 @@
 package element
 
-/** The base class for 2 dimensional bar codes (Aztec, Pdf417, DataMatrixBarcode and QrCode). */
+// The base class for 2 dimensional bar codes (Aztec, Pdf417, DataMatrixBarcode and QrCode).
 type Dim2 struct {
 	Barcode
 }

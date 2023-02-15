@@ -2,23 +2,21 @@ package input
 
 type InputType string
 
-/**
- * Specifies horizontal alignment. Center alignment is the default value for alignments.
- */
+// Specifies horizontal alignment. Center alignment is the default value for alignments.
 const (
 
-	/* Dlex input.*/
+	// Dlex input.
 	DlexInput InputType = "dlex"
 
-	/* Pdf input. */
+	// Pdf input.
 	PdfInput InputType = "pdf"
 
-	/* Image input. */
+	// Image input.
 	ImageInput InputType = "image"
 
-	/* Page input. */
+	// Page input.
 	PageInput InputType = "page"
 
-	/* Html input. */
+	// Html input.
 	HtmlInput InputType = "html"
 )

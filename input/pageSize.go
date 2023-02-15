@@ -2,9 +2,7 @@ package input
 
 type PageSize string
 
-/**
- * Represents Page Orientation.
- */
+// Represents Page Orientation.
 const (
 	A3              PageSize = "A3"
 	A4              PageSize = "A4"

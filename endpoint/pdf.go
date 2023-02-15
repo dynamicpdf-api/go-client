@@ -12,7 +12,7 @@ import (
 	"github.com/dynamicpdf-api/go-client/resource"
 )
 
-/** Represents a pdf endpoint. */
+// Represents a pdf endpoint.
 type Pdf struct {
 	Endpoint                  `json:"-"`             // This will be skipped in JSON
 	Author                    string                 `json:"author"`
@@ -34,7 +34,7 @@ type Pdf struct {
 
 var _ EndpointProcessor = (*Pdf)(nil)
 
-/** Initializes a new instance of the `Pdf` class. */
+// Initializes a new instance of the `Pdf` class.
 func NewPdf() *Pdf {
 	var ep Pdf
 
@@ -75,126 +75,126 @@ func (p *Pdf) ApiKey() string {
 	return p.Endpoint.ApiKey
 }
 
-/**
- * Returns a `PdfInput` object containing the input pdf.
- * @param {resource} value The resource of type `PdfResource`
- * @param {MergeOptions} options The merge options for the pdf.
- * @returns PdfInput
- */
+/*
+Returns a `PdfInput` object containing the input pdf.
+  - @param {resource} value The resource of type `PdfResource`
+  - @param {MergeOptions} options The merge options for the pdf.
+  - @returns PdfInput
+*/
 func (p *Pdf) AddPdf(resource resource.PdfResource, option input.MergeOptions) *input.Pdf {
 	var input = input.NewPdfWithResourceWithMergerOption(resource, option)
 	p.Inputs = append(p.Inputs, input)
 	return input
 }
 
-/**
- * Returns a `PdfInput` object containing the input pdf.
- * @param {cloudResourcePath} The resource path in cloud resource manager.
- * @param {MergeOptions} options The merge options for the pdf.
- * @returns PdfInput
- */
+/*
+Returns a `PdfInput` object containing the input pdf.
+  - @param {cloudResourcePath} The resource path in cloud resource manager.
+  - @param {MergeOptions} options The merge options for the pdf.
+  - @returns PdfInput
+*/
 func (p *Pdf) AddPdfCloudPath(cloudResourcePath string, option input.MergeOptions) *input.Pdf {
 	var input = input.NewPdfWithCloudPath(cloudResourcePath, option)
 	p.Inputs = append(p.Inputs, input)
 	return input
 }
 
-/**
- * Returns a `ImageInput` object containing the input pdf.
- * @param {PdfResource} value The resource of type `ImageResource`.
- * @returns ImageInput
- */
+/*
+Returns a `ImageInput` object containing the input pdf.
+  - @param {PdfResource} value The resource of type `ImageResource`.
+  - @returns ImageInput
+*/
 func (p *Pdf) AddImage(resource resource.ImageResource) *input.Image {
 	var input = input.NewImagewithImageResource(resource)
 	p.Inputs = append(p.Inputs, input)
 	return input
 }
 
-/**
- * Returns a `ImageInput` object containing the input pdf.
- * @param {string}The resource path in cloud resource manager.
- * @returns ImageInput
- */
+/*
+Returns a `ImageInput` object containing the input pdf.
+  - @param {string}The resource path in cloud resource manager.
+  - @returns ImageInput
+*/
 func (p *Pdf) AddImageCloudPath(cloudResourcePath string) *input.Image {
 	var input = input.NewImageWithResourcePath(cloudResourcePath)
 	p.Inputs = append(p.Inputs, input)
 	return input
 }
 
-/**
- * Returns a `DlexInput` object containing the input pdf.
- * @param {DlexResource} value The dlex resource of type `DlexResource`.
- * @param {LayoutDataResource} value1 The layout data resource of type `LayoutDataResource`
- * @returns DlexInput
- */
+/*
+Returns a `DlexInput` object containing the input pdf.
+  - @param {DlexResource} value The dlex resource of type `DlexResource`.
+  - @param {LayoutDataResource} value1 The layout data resource of type `LayoutDataResource`
+  - @returns DlexInput
+*/
 func (p *Pdf) AddNewDlexWithDlexNLayoutResources(resource resource.DlexResource, layoutData resource.LayoutDataResource) *input.Dlex {
 	var input = input.NewDlexWithDlexNLayoutResources(resource, layoutData)
 	p.Inputs = append(p.Inputs, input)
 	return input
 }
 
-/**
- * Returns a `DlexInput` object containing the input pdf.
- * @param {DlexResource} value The dlex resource of type `DlexResource`.
- * @param {string} value1 The layout data resource path.
- * @returns DlexInput
- */
+/*
+Returns a `DlexInput` object containing the input pdf.
+  - @param {DlexResource} value The dlex resource of type `DlexResource`.
+  - @param {string} value1 The layout data resource path.
+  - @returns DlexInput
+*/
 func (p *Pdf) AddDlexWithDlexResourceNLayoutDataPath(resource resource.DlexResource, layoutDataPath string) *input.Dlex {
 	var input = input.NewDlexWithDlexResourceNLayoutDataPath(resource, layoutDataPath)
 	p.Inputs = append(p.Inputs, input)
 	return input
 }
 
-/**
- * Returns a `DlexInput` object containing the input pdf.
- * @param {String} The resource path in cloud resource manager.
- * @param {String} The layout data resource path.
- * @returns DlexInput
- */
+/*
+Returns a `DlexInput` object containing the input pdf.
+  - @param {String} The resource path in cloud resource manager.
+  - @param {String} The layout data resource path.
+  - @returns DlexInput
+*/
 func (p *Pdf) AddDlexWithCloudResourceNLayoutDataPath(cloudResourcePath string, layoutDataPath string) *input.Dlex {
 	var input = input.NewDlexWithCloudResourceNLayoutDataPath(cloudResourcePath, layoutDataPath)
 	p.Inputs = append(p.Inputs, input)
 	return input
 }
 
-/**
- * Returns a `DlexInput` object containing the input pdf.
- * @param {String} The resource path in cloud resource manager.
- * @param {LayoutDataResource} value1 The layout data resource of type `LayoutDataResource`
- * @returns DlexInput
- */
+/*
+Returns a `DlexInput` object containing the input pdf.
+  - @param {String} The resource path in cloud resource manager.
+  - @param {LayoutDataResource} value1 The layout data resource of type `LayoutDataResource`
+  - @returns DlexInput
+*/
 func (p *Pdf) AddDlexWithCloudResourceNLayoutData(cloudResourcePath string, layoutData resource.LayoutDataResource) *input.Dlex {
 	var input = input.NewDlexWithCloudResourceNLayoutData(cloudResourcePath, layoutData)
 	p.Inputs = append(p.Inputs, input)
 	return input
 }
 
-/**
- * Returns a `PageInput` object containing the input pdf.
- * @param {float} pageWidth The width of the page.
- * @param {float} pageHeight The height of the page.
- * @returns PageInput
- */
+/*
+Returns a `PageInput` object containing the input pdf.
+  - @param {float} pageWidth The width of the page.
+  - @param {float} pageHeight The height of the page.
+  - @returns PageInput
+*/
 func (p *Pdf) AddPageWithDimension(width float32, height float32) *input.Page {
 	var input = input.NewPageWithDimension(width, height)
 	p.Inputs = append(p.Inputs, input)
 	return input
 }
 
-/**
- * Returns a `PageInput` object containing the input pdf.
- * @returns PageInput
- */
+/*
+Returns a `PageInput` object containing the input pdf.
+  - @returns PageInput
+*/
 func (p *Pdf) AddPage() *input.Page {
 	var input = input.NewPage()
 	p.Inputs = append(p.Inputs, input)
 	return input
 }
 
-/**
- * Process to create pdf.
- * @returns A Promise of PdfResponse callback.
- */
+/*
+Process to create pdf.
+  - @returns A Promise of PdfResponse callback.
+*/
 func (p *Pdf) Process() <-chan PdfResponse {
 	retResponse := make(chan PdfResponse)
 	var finalResource []resource.Resource

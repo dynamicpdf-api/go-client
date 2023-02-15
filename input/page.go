@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-/** Represents a page input. */
+// Represents a page input.
 type Page struct {
 	Input
 	PageHeight float32 `json:"pageHeight"`
@@ -27,11 +27,11 @@ func NewPage() *Page {
 	return &p
 }
 
-/**
- * Initializes a new instance of the `PageInput` class.
- * @param {float} pageWidth The width of the page.
- * @param {float} pageHeight The height of the page.
- */
+/*
+Initializes a new instance of the `PageInput` class.
+  - @param {float} pageWidth The width of the page.
+  - @param {float} pageHeight The height of the page.
+*/
 func NewPageWithDimension(width float32, height float32) *Page {
 	var p Page
 	p.Elements = []element.ElementCollector{}
@@ -49,52 +49,52 @@ func (p *Page) Element() []element.ElementCollector {
 	return p.Elements
 }
 
-/** Gets the TopMargin. */
+// Gets the TopMargin.
 func (p *Page) TopMargin() float32 {
 	return p.topMargin
 }
 
-/** sets the TopMargin. */
+// sets the TopMargin.
 func (p *Page) SetTopMargin(value float32) {
 	p.topMargin = value
 }
 
-/** Gets the BottomMargin. */
+// Gets the BottomMargin.
 func (p *Page) BottomMargin() float32 {
 	return p.bottomMargin
 }
 
-/** sets the BottomMargin. */
+// sets the BottomMargin.
 func (p *Page) SetBottomMargin(value float32) {
 	p.bottomMargin = value
 }
 
-/** Gets the LeftMargin. */
+// Gets the LeftMargin.
 func (p *Page) LeftMargin() float32 {
 	return p.leftMargin
 }
 
-/** sets the LeftMargin. */
+// sets the LeftMargin.
 func (p *Page) SetLeftMargin(value float32) {
 	p.leftMargin = value
 }
 
-/** Gets the RightMargin. */
+// Gets the RightMargin.
 func (p *Page) RightMargin() float32 {
 	return p.rightMargin
 }
 
-/** sets the RightMargin. */
+// sets the RightMargin.
 func (p *Page) SetRightMargin(value float32) {
 	p.rightMargin = value
 }
 
-/** Gets the PageSize. */
+// Gets the PageSize.
 func (p *Page) PageSize() PageSize {
 	return p.pageSize
 }
 
-/** sets the PageSize. */
+// sets the PageSize.
 func (p *Page) SetPageSize(value PageSize) {
 	p.pageSize = value
 	p.getPaperSize(value)
@@ -105,12 +105,12 @@ func (p *Page) SetPageSize(value PageSize) {
 	p.pageWidth = p.smaller
 }
 
-/** Gets the PageOrientation. */
+// Gets the PageOrientation.
 func (p *Page) PageOrientation() Orientation {
 	return p.pageOrientation
 }
 
-/** sets the PageOrientation. */
+// sets the PageOrientation.
 func (p *Page) SetPageOrientation(value Orientation) {
 	p.pageOrientation = value
 	if p.pageOrientation == Landscape {
