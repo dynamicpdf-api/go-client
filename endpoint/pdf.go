@@ -241,15 +241,15 @@ func (p *Pdf) Process() <-chan PdfResponse {
 			return
 		}
 
-		jsonPdf, err := json.Marshal(p.pdfInstruction)
+		jsonInstruction, err := json.Marshal(p.pdfInstruction)
 		if err == nil {
 			oBuf := bytes.NewBuffer(nil)
-			json.Indent(oBuf, jsonPdf, "", "\t")
+			json.Indent(oBuf, jsonInstruction, "", "\t")
 			str := oBuf.String()
 			pkgLog.Println("\n" + str)
 		}
-		jsonStr := bytes.NewBuffer(jsonPdf)
-		io.Copy(part, jsonStr)
+		jsonInstructionBuf := bytes.NewBuffer(jsonInstruction)
+		io.Copy(part, jsonInstructionBuf)
 
 		for _, finalResource1 := range finalResource {
 			formWriter.WriteField("Resource", string(finalResource1.Data()))

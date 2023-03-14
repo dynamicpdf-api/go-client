@@ -17,4 +17,5 @@
 
 test/
 test_output/
+.vscode/
 test-config.json

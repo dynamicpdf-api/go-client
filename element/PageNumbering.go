@@ -13,8 +13,6 @@ type PageNumbering struct {
 	Element
 
 	color color.Color
-
-	font font.Font
 }
 
 var _ ElementCollector = (*PageNumbering)(nil)

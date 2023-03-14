@@ -3,6 +3,7 @@ package endpoint
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -40,6 +41,10 @@ type formData struct {
 	contentType string
 }
 
+func SetLogger(logger log.Logger) {
+	pkgLog = logger
+}
+
 func postForm(form formData, endPoint EndpointProcessor) (response, error) {
 	var response response = response{isSuccessful: false}
 
@@ -60,12 +65,19 @@ func postForm(form formData, endPoint EndpointProcessor) (response, error) {
 	if err != nil || resp.Status != "200 OK" {
 		pkgLog.Printf("\nError: %s\n", err)
 		response.statusCode = resp.StatusCode
-		response.errorJson = resp.Status
+		response.errorMessage = resp.Status
+		body, _ := io.ReadAll(resp.Body)
+		response.errorJson = string(body)
 		response.clientError = err
 		return response, err
 	}
 	pkgLog.Println("response Status:", resp.Status)
-	pkgLog.Println("response Headers:", resp.Header)
+	headers := ""
+	for k, v := range resp.Header {
+		headers += fmt.Sprintln("\t", k, "\t:", v)
+	}
+	pkgLog.Println("response Headers:\n", headers)
+
 	body, e := ioutil.ReadAll(resp.Body)
 	if e == nil && err == nil {
 		response.clientError = err

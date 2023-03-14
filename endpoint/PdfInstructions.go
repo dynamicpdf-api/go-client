@@ -52,7 +52,7 @@ func (p *PdfInstruction) MarshalJSON() ([]byte, error) {
 		RetainSignatureFormFields bool                   `json:"retainSignatureFormFields,omitempty"`
 		Security                  Security               `json:"security,omitempty"`
 		FormField                 []FormField            `json:"formFields,omitempty"`
-		Font                      []font.Font            `json:"font,omitempty"`
+		Fonts                     []font.Font            `json:"fonts,omitempty"`
 		Template                  []element.Template     `json:"templates,omitempty"`
 		Outlines                  []Outline              `json:"outlines,omitempty"`
 		Input                     []input.InputCollector `json:"inputs,omitempty"`
@@ -68,7 +68,7 @@ func (p *PdfInstruction) MarshalJSON() ([]byte, error) {
 		RetainSignatureFormFields: p.retainSignatureFormFields,
 		Security:                  p.security,
 		FormField:                 p.formFields,
-		Font:                      p.fonts,
+		Fonts:                     p.fonts,
 		Template:                  p.template,
 		Outlines:                  p.outlines,
 		Input:                     p.inputs,
