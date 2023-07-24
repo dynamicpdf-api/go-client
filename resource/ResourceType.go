@@ -15,4 +15,6 @@ const (
 	FontResourceType ResourceType = 4
 	// Html resource
 	HtmlResourceType ResourceType = 5
+	//Word Resource
+	WordResourceType ResourceType = 6
 )

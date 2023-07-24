@@ -19,4 +19,7 @@ const (
 
 	// Html input.
 	HtmlInput InputType = "html"
+
+	//Word input
+	WordInput InputType = "word"
 )

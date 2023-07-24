@@ -1,6 +1,8 @@
 package font
 
 import (
+	"strconv"
+
 	"github.com/dynamicpdf-api/go-client/resource"
 	"github.com/google/uuid"
 )
@@ -102,4 +104,24 @@ func Symbol() Font {
 // Gets the Zapf Dingbats core font.
 func ZapfDingbats() Font {
 	return Font{Name: "zapfDingbats"}
+}
+
+func getGoogleFontText(name string, weight int, italic bool) string {
+	if italic == true {
+		return name + ":" + strconv.Itoa(weight) + "italic"
+	} else {
+		return name + ":" + strconv.Itoa(weight)
+	}
+}
+
+func Google(fontName string) *Font {
+	font := NewFont()
+	font.Name = getGoogleFontText(fontName, 400, false)
+	return font
+}
+
+func GoogleFontWithWeight(fontName string, weight int, italic bool) *Font {
+	font := NewFont()
+	font.Name = getGoogleFontText(fontName, weight, italic)
+	return font
 }

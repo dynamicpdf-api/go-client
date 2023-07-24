@@ -35,6 +35,10 @@ type Input struct {
 	pageHeight             float32
 	pageSize               PageSize
 	pageOrientation        Orientation
+	TextReplace            []TextReplace `json:"textReplace,omitempty"`
+	text                   string
+	replaceText            string
+	matchCase              bool
 }
 
 func newInput(cloudResourcePath string) *Input {
@@ -134,6 +138,10 @@ func (p *Input) MarshalJSON() ([]byte, error) {
 		RightMargin  float32   `json:"rightMargin,omitempty"`
 		PageWidth    float32   `json:"pageWidth,omitempty"`
 		PageHeight   float32   `json:"pageHeight,omitempty"`
+		Text         string    `json:"text,omitempty"`
+		ReplaceText  string    `json:"replaceText,omitempty"`
+		MatchCase    bool      `json:"matchCase,omitempty"`
+
 		*Alias
 	}{
 		TemplateId:   p.template_ID,
@@ -146,6 +154,9 @@ func (p *Input) MarshalJSON() ([]byte, error) {
 		RightMargin:  p.rightMargin,
 		PageWidth:    p.pageWidth,
 		PageHeight:   p.pageHeight,
+		Text:         p.text,
+		ReplaceText:  p.replaceText,
+		MatchCase:    p.matchCase,
 		Alias:        (*Alias)(p),
 	})
 }

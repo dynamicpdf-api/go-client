@@ -29,8 +29,6 @@ type PdfInstruction struct {
 
 func NewPdfInstruction() *PdfInstruction {
 	var ep PdfInstruction
-	ep.author = "Cete Software"
-	ep.creator = "DynamicPDF Cloud Api"
 	return &ep
 }
 
