@@ -30,10 +30,6 @@ type Outline struct {
 	children OutlineList
 }
 
-func newOutlineDefault() *OutlineList {
-	var ep OutlineList
-	return &ep
-}
 func newOutline(input input.Pdf) *Outline {
 	var ep Outline
 	ep.fromInputID = input.Id()
@@ -73,9 +69,8 @@ func (p *Outline) SetColor(value color.Color) {
 	p.colorName = p.color.ColorString()
 }
 
-func (p *Outline) Children() OutlineList {
-	p.children = *newOutlineDefault()
-	return p.children
+func (p *Outline) Children() *OutlineList {
+	return &p.children
 }
 
 // Gets a collection of child outlines.

@@ -44,9 +44,8 @@ Initializes a new instance of the `PdfInput` class.
   - @param {MergeOptions} mergeOptions The merge options for the pdf.
 */
 func NewPdfWithResource(resource resource.PdfResource) *Pdf {
-	var p Pdf
+	p := Pdf{Input: *newInputWithResource(resource.Resource)}
 	p.SetId(uuid.NewString())
-	p = Pdf{Input: *newInputWithResource(resource.Resource)}
 	p.Elements = []element.ElementCollector{}
 	p.inputType = p.InputType()
 	return &p

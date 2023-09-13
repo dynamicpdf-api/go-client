@@ -30,6 +30,7 @@ type Pdf struct {
 	FlattenAllFormFields      bool
 	RetainSignatureFormFields bool
 	pdfInstruction            *PdfInstruction
+	finalResource             []resource.Resource
 }
 
 var _ EndpointProcessor = (*Pdf)(nil)
@@ -62,7 +63,7 @@ func (p *Pdf) initPdfInstruction() {
 	p.pdfInstruction.template = p.Templates
 	p.pdfInstruction.title = p.Title
 }
-func (p *Pdf) GetInstructionsJson(indent bool) []byte {
+func (p *Pdf) GetInstructionsJson(indent bool) *bytes.Buffer {
 	var finalResource []resource.Resource
 	p.initPdfInstruction()
 	for _, input1 := range p.pdfInstruction.inputs {
@@ -79,9 +80,7 @@ func (p *Pdf) GetInstructionsJson(indent bool) []byte {
 			}
 		}
 		res := input1.Resources()
-		for _, r := range res {
-			finalResource = append(finalResource, r)
-		}
+		finalResource = append(finalResource, res...)
 		if len(input1.Template().Id) > 0 {
 			p.pdfInstruction.template = append(p.pdfInstruction.template, input1.Template())
 			if input1.Template().Elements != nil {
@@ -96,17 +95,20 @@ func (p *Pdf) GetInstructionsJson(indent bool) []byte {
 			}
 		}
 	}
-	jsonPdf, err := json.Marshal(p.pdfInstruction)
+	p.finalResource = finalResource
+	oBuf := new(bytes.Buffer)
+	jsonInstruction, err := json.Marshal(p.pdfInstruction)
 	if err == nil {
-		oBuf := bytes.NewBuffer(nil)
 		if indent {
-			json.Indent(oBuf, jsonPdf, "", "\n")
+			json.Indent(oBuf, jsonInstruction, "", "  ")
+		} else {
+			oBuf.Write(jsonInstruction)
 		}
-		str := oBuf.String()
-		pkgLog.Println("\n" + str)
+		pkgLog.Println(oBuf)
 	}
-	return jsonPdf
+	return oBuf
 }
+
 func (p *Pdf) EndpointName() string {
 	return "pdf"
 }
@@ -241,40 +243,7 @@ Process to create pdf.
 */
 func (p *Pdf) Process() <-chan PdfResponse {
 	retResponse := make(chan PdfResponse)
-	var finalResource []resource.Resource
 	go func() {
-		p.initPdfInstruction()
-		for _, input1 := range p.pdfInstruction.inputs {
-			if input1.InputType() == "page" {
-				for _, element1 := range input1.Element() {
-
-					if element1.Resources().ResourceName != "" {
-						finalResource = append(finalResource, element1.Resources())
-					}
-
-					if element1.TextFont().ResourceName != "" {
-						p.pdfInstruction.fonts = append(p.pdfInstruction.fonts, element1.TextFont())
-					}
-				}
-			}
-			res := input1.Resources()
-			for _, r := range res {
-				finalResource = append(finalResource, r)
-			}
-			if len(input1.Template().Id) > 0 {
-				p.pdfInstruction.template = append(p.pdfInstruction.template, input1.Template())
-				if input1.Template().Elements != nil {
-					for _, element1 := range input1.Template().Elements {
-						if element1.Resources().ResourceName != "" {
-							finalResource = append(finalResource, element1.Resources())
-						}
-						if element1.TextFont().ResourceName != "" {
-							p.pdfInstruction.fonts = append(p.pdfInstruction.fonts, element1.TextFont())
-						}
-					}
-				}
-			}
-		}
 		var form formData
 		form.content = bytes.NewBuffer(nil)
 		formWriter := multipart.NewWriter(form.content)
@@ -285,21 +254,13 @@ func (p *Pdf) Process() <-chan PdfResponse {
 			return
 		}
 
-		jsonInstruction, err := json.Marshal(p.pdfInstruction)
-		if err == nil {
-			oBuf := bytes.NewBuffer(nil)
-			json.Indent(oBuf, jsonInstruction, "", "\t")
-			str := oBuf.String()
-			pkgLog.Println("\n" + str)
-		}
-		jsonInstructionBuf := bytes.NewBuffer(jsonInstruction)
-		io.Copy(part, jsonInstructionBuf)
+		io.Copy(part, p.GetInstructionsJson(false))
 
-		for _, finalResource1 := range finalResource {
+		for _, finalResource1 := range p.finalResource {
 			formWriter.WriteField("Resource", string(finalResource1.Data()))
 		}
 
-		for _, resource1 := range finalResource {
+		for _, resource1 := range p.finalResource {
 			if resource1.ResourceType() == resource.LayoutDataResourceType {
 				part, err := formWriter.CreateFormFile("Resource", resource1.LayoutDataResourceName)
 				if err != nil {

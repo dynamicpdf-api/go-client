@@ -4,8 +4,11 @@ package endpoint
 type UrlAction struct {
 
 	// Gets or Sets the name of a signature field.
-	Name string `json:"name,omitempty"`
+	Url string `json:"url,omitempty"`
+}
 
-	// Gets or Sets the boolean, indicating the field signed or not.
-	Signed bool `json:"signed,omitempty"`
+func NewUrlAction(url string) *UrlAction {
+	ua := new(UrlAction)
+	ua.Url = url
+	return ua
 }

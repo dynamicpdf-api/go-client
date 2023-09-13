@@ -16,10 +16,10 @@ Adds an `Outline` object to the outline list.
   - @param {string} text Text of the outline.
   - @returns outline
 */
-func (p *OutlineList) Add(value string) Outline {
+func (p *OutlineList) Add(value string) *Outline {
 	var outline = newOutlineWithText(value)
 	p.outlinesList = append(p.outlinesList, *outline)
-	return *outline
+	return &p.outlinesList[len(p.outlinesList)-1]
 }
 
 /*
@@ -28,10 +28,10 @@ Adds an `Outline` object to the outline list.
   - @param {string} input URL the action launches.
   - @returns outline
 */
-func (p *OutlineList) AddWithURL(value string, url Action) Outline {
+func (p *OutlineList) AddWithURL(value string, url Action) *Outline {
 	var outline = newOutlineWithAction(value, url)
 	p.outlinesList = append(p.outlinesList, *outline)
-	return *outline
+	return &p.outlinesList[len(p.outlinesList)-1]
 }
 
 /*
@@ -44,17 +44,13 @@ Adds an `Outline` object to the outline list.
 */
 func (p *OutlineList) AddWithInputValue(text string, input input.Input, pageOffSet int, pageZoom PageZoom) *Outline {
 	var linkTo = NewGoToAction(input, pageOffSet, pageZoom)
-	var outline = newOutlineWithAction(text, linkTo.Action)
+	var outline = newOutlineWithAction(text, linkTo)
 	p.outlinesList = append(p.outlinesList, *outline)
-	return outline
+	return &p.outlinesList[len(p.outlinesList)-1]
 }
 
 func (p *OutlineList) AddPdfOutlines(value input.Pdf) {
 	p.outlinesList = append(p.outlinesList, *newOutline(value))
-}
-
-func (p *OutlineList) outlines() []Outline {
-	return p.outlinesList
 }
 
 func (p OutlineList) MarshalJSON() ([]byte, error) {
