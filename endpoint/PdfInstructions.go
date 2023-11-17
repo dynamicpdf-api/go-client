@@ -59,6 +59,7 @@ func (p *PdfInstruction) MarshalJSON() ([]byte, error) {
 		Author:                    p.author,
 		Subject:                   p.subject,
 		Keywords:                  p.keywords,
+		Producer:                  p.producer,
 		Creator:                   p.creator,
 		Title:                     p.title,
 		PageInformation:           p.pageInformation,
