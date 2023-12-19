@@ -15,6 +15,7 @@ type PdfInstruction struct {
 	keywords                  string
 	creator                   string
 	producer                  string
+	tag                       bool
 	title                     string
 	pageInformation           PageInformation
 	flattenAllFormFields      bool
@@ -44,6 +45,7 @@ func (p *PdfInstruction) MarshalJSON() ([]byte, error) {
 		Keywords                  string                 `json:"keywords,omitempty"`
 		Creator                   string                 `json:"creator,omitempty"`
 		Producer                  string                 `json:"producer,omitempty"`
+		Tag                       bool                   `json:"tag,omitempty"`
 		Title                     string                 `json:"title,omitempty"`
 		PageInformation           PageInformation        `json:"pageInformation,omitempty"`
 		FlattenAllFormFields      bool                   `json:"flattenAllFormFields,omitempty"`
@@ -60,6 +62,7 @@ func (p *PdfInstruction) MarshalJSON() ([]byte, error) {
 		Subject:                   p.subject,
 		Keywords:                  p.keywords,
 		Producer:                  p.producer,
+		Tag:                       p.tag,
 		Creator:                   p.creator,
 		Title:                     p.title,
 		PageInformation:           p.pageInformation,

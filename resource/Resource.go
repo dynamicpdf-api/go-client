@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 )
 
 // Represents the base class resource.
@@ -28,14 +29,17 @@ func NewResourceWithPath(input string, resourceName string) Resource {
 	} else {
 		ep.setFilepath(input)
 		ep.data = ep.getFileData()
+		ep.typeOfResource = ep.getResourceType(input)
 	}
 	return ep
 }
+
 
 func NewResourceWithByteValue(input []byte, resourceName string) *Resource {
 	var ep Resource
 	ep.ResourceName = resourceName
 	ep.data = input
+	ep.typeOfResource = ep.ResourceType()
 	return &ep
 }
 
@@ -65,6 +69,32 @@ func (p *Resource) setMimeType(mimeType string) {
 
 func (p *Resource) ResourceType() ResourceType {
 	return p.typeOfResource
+}
+
+func (p *Resource) getResourceType(resourcePath string) ResourceType {
+	typ := PdfResourceType
+	fileExtension := filepath.Ext(resourcePath)
+	switch fileExtension {
+	case ".pdf":
+		typ = PdfResourceType
+		break
+	case ".dlex":
+		typ = DlexResourceType
+		break
+	case ".json":
+		typ = LayoutDataResourceType
+		break
+	case ".ttf", ".otf":
+		typ = FontResourceType
+		break
+	case ".tiff", ".tif", ".png", ".gif", ".jpeg", ".jpg", ".bmp":
+		typ = ImageResourceType
+		break
+	case ".html":
+		typ = HtmlResourceType
+		break
+	}
+	return typ
 }
 
 func (p *Resource) setResourceType(mimeType ResourceType) {

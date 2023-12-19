@@ -21,6 +21,7 @@ type Pdf struct {
 	Creator                   string
 	Keywords                  string
 	Producer                  string
+	Tag                       bool
 	Templates                 []element.Template
 	Fonts                     []font.Font
 	FormFields                []FormField
@@ -57,6 +58,7 @@ func (p *Pdf) initPdfInstruction() {
 	p.pdfInstruction.keywords = p.Keywords
 	p.pdfInstruction.outlines = p.Outlines.outlinesList
 	p.pdfInstruction.producer = p.Producer
+	p.pdfInstruction.tag = p.Tag
 	p.pdfInstruction.retainSignatureFormFields = p.RetainSignatureFormFields
 	p.pdfInstruction.security = p.Security
 	p.pdfInstruction.subject = p.Subject

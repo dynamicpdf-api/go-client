@@ -16,6 +16,7 @@ type Dlex struct {
 
 	// Gets or sets the DLEX file path present in the resource manager.
 	DlexPath string `json:"dlexPath,omitempty"`
+	Resources []resource.Resource
 }
 
 /*
@@ -30,6 +31,30 @@ func NewDlexEndpoint(cloudDlexPath string, resource resource.LayoutDataResource)
 	ep.resource = resource
 	ep.DlexPath = cloudDlexPath
 	return &ep
+}
+
+/*
+	Initializes a new instance of the <see cref="DlexInput"/> class by posting the
+
+DLEX file and the JSON data file from the client to the API to create the PDF report.
+  - @param {DlexResource} dlexResource The DLEX file created as per the desired PDF report layout design.
+  - @param {LayoutDataResource} layoutData The `LayoutDataResource` json data file used to create the PDF report.
+*/
+func NewDlexEndpointWithResource(dlexResource resource.DlexResource, resource resource.LayoutDataResource) *Dlex {
+	var ep Dlex
+	ep.Resources = append(ep.Resources, dlexResource.Resource)
+	ep.resource = resource
+	return &ep
+}
+
+/*
+Adds additional resource to the endpoint.
+  - @param {resourcePath} The resource file path.
+  - @param {resourceName} The name of the resource.
+*/
+func NewDlexWithAdditionalResource(resourcePath string, resourceName string) resource.Resource {
+	additionalResource := resource.NewResourceWithPath(resourcePath, resourceName)
+	return additionalResource
 }
 
 var _ EndpointProcessor = (*Dlex)(nil)
@@ -65,6 +90,16 @@ func (p *Dlex) Process() <-chan PdfResponse {
 		resourceData := bytes.NewBuffer(p.resource.Data())
 		io.Copy(part, resourceData)
 		formWriter.WriteField("DlexPath", p.DlexPath)
+
+		for _, finalResource1 := range p.Resources {
+			part, err := formWriter.CreateFormFile("Resource", finalResource1.ResourceName)
+			if err != nil {
+				return
+			}
+			resourceData := bytes.NewBuffer(finalResource1.Data())
+			io.Copy(part, resourceData)
+		}
+
 		err = formWriter.Close()
 		if err != nil {
 			return
