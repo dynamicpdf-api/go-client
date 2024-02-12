@@ -11,12 +11,7 @@ import (
 // Represents a pdf input.
 type Pdf struct {
 	Input
-	// Gets or sets the start page.
-	StartPage int `json:"startPage"` /*TODO:Nullability*/
-	// Gets or sets the page count.
-	PageCount int `json:"pageCount"` /*TODO:Nullability*/
-	// Gets or sets the merge options `MergeOptions`
-	MergeOption MergeOptions `json:"mergeOptions"` /*TODO:Type*/
+
 	pdfresource []resource.PdfResource
 	Elements    []element.ElementCollector `json:"elements"` /*TODO:Type*/
 }

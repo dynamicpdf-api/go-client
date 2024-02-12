@@ -28,12 +28,12 @@ Initializes a new instance of the `LineElement` class.
   - @param {float} x2Offset X2 coordinate of the line.
   - @param {float} y2Offset Y2 coordinate of the line.
 */
-func NewLine(placement elementPlacement, xOffSet float32, yOffSet float32) *Line {
+func NewLine(placement elementPlacement, x2OffSet float32, y2OffSet float32) *Line {
 	var p Line
 	p.typeOfElement = p.ElementType()
 	p.Placement = placement
-	p.SetX2Offset(xOffSet)
-	p.SetY2Offset(yOffSet)
+	p.SetX2Offset(x2OffSet)
+	p.SetY2Offset(y2OffSet)
 	p.SetLineStyle(*p.lineStyle.Dash())
 	return &p
 }

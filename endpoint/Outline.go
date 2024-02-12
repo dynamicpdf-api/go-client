@@ -44,7 +44,7 @@ func newOutlineWithText(text string) *Outline {
 func newOutlineWithAction(text string, action Action) *Outline {
 	var ep Outline
 	ep.Text = text
-	ep.setAction(action)
+	ep.SetAction(action)
 	return &ep
 }
 
@@ -54,7 +54,7 @@ func (p *Outline) Action() Action {
 }
 
 // Sets the color of the outline.
-func (p *Outline) setAction(value Action) {
+func (p *Outline) SetAction(value Action) {
 	p.linkTo = value
 }
 

@@ -10,10 +10,8 @@ import (
 // Represents a page input.
 type Page struct {
 	Input
-	PageHeight float32 `json:"pageHeight"`
-	PageWidth  float32 `json:"pageWidth"`
-	smaller    float32
-	larger     float32
+	smaller float32
+	larger  float32
 }
 
 var _ InputCollector = (*Page)(nil)
@@ -37,8 +35,8 @@ func NewPageWithDimension(width float32, height float32) *Page {
 	p.Elements = []element.ElementCollector{}
 	p.SetId(uuid.NewString())
 	p.inputType = p.InputType()
-	p.PageWidth = width
-	p.PageHeight = height
+	p.SetPageHeight(height)
+	p.SetPageWidth(width)
 	return &p
 }
 
@@ -47,6 +45,26 @@ func (p *Page) InputType() InputType {
 }
 func (p *Page) Element() []element.ElementCollector {
 	return p.Elements
+}
+
+// Gets the page width.
+func (p *Page) PageWidth() float32 {
+	return p.pageWidth
+}
+
+// sets the page width.
+func (p *Page) SetPageWidth(value float32) {
+	p.pageWidth = value
+}
+
+// Gets the page height.
+func (p *Page) PageHeight() float32 {
+	return p.pageHeight
+}
+
+// sets the page height.
+func (p *Page) SetPageHeight(value float32) {
+	p.pageHeight = value
 }
 
 // Gets the TopMargin.

@@ -10,7 +10,7 @@ type ChoiceFieldInformation struct {
 	Name string `json:"name,omitempty"`
 
 	// Gets or sets the type of the button field, ex: RadioButton, CheckBox etc.
-	Type int `json:"type,omitempty"`
+	Type ChoiceFieldType `json:"type,omitempty"`
 
 	// Gets or sets the value of the button field.
 	Value string `json:"value,omitempty"`

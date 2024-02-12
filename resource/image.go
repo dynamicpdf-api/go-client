@@ -19,6 +19,7 @@ Initializes a new instance of the `ImageResource` class.
 */
 func NewImageResourceWithResourcePath(resource string, resourceName string) ImageResource {
 	var ep ImageResource
+	ep.setFilepath(resource)
 	ep.typeOfResource = ep.ResourceType()
 	ep = ImageResource{Resource: NewResourceWithPath(resource, resourceName)}
 	return ep

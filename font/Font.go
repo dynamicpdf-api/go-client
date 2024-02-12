@@ -116,12 +116,18 @@ func getGoogleFontText(name string, weight int, italic bool) string {
 
 func Google(fontName string) *Font {
 	font := NewFont()
-	font.Name = getGoogleFontText(fontName, 400, false)
+	font.Name = fontName
 	return font
 }
 
 func GoogleFontWithWeight(fontName string, weight int, italic bool) *Font {
 	font := NewFont()
 	font.Name = getGoogleFontText(fontName, weight, italic)
+	return font
+}
+
+func Global(fontName string) *Font {
+	font := NewFont()
+	font.Name = fontName
 	return font
 }

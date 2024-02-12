@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 
 	"github.com/dynamicpdf-api/go-client/element"
+	"github.com/dynamicpdf-api/go-client/position"
 	"github.com/dynamicpdf-api/go-client/resource"
 	"github.com/google/uuid"
 )
@@ -39,6 +40,15 @@ type Input struct {
 	text                   string
 	replaceText            string
 	matchCase              bool
+	ScaleX                 float32         `json:"scaleX,omitempty"`
+	ScaleY                 float32         `json:"scaleY,omitempty"`
+	VAlign                 position.VAlign `json:"vAlign,omitempty"`
+	Align                  position.Align  `json:"align,omitempty"`
+	ExpandToFit            bool            `json:"expandToFit,omitempty"`
+	ShrinkToFit            bool            `json:"shrinkToFit,omitempty"`
+	StartPage              int             `json:"startPage,omitempty"`
+	PageCount              int             `json:"pageCount,omitempty"`    /*TODO:Nullability*/
+	MergeOption            MergeOptions    `json:"mergeOptions,omitempty"` /*TODO:Type*/
 }
 
 func newInput(cloudResourcePath string) *Input {
@@ -83,46 +93,6 @@ func (p *Input) Id() string {
 
 func (p *Input) SetId(value string) {
 	p.id = value
-}
-
-// Gets the top margin.
-func (p *Input) TopMargin() float32 {
-	return p.topMargin
-}
-
-// sets the top margin.
-func (p *Input) SetTopMargin(value float32) {
-	p.topMargin = value
-}
-
-// Gets the bottom margin.
-func (p *Input) BottomMargin() float32 {
-	return p.bottomMargin
-}
-
-// sets the bottom margin.
-func (p *Input) SetBottomMargin(value float32) {
-	p.bottomMargin = value
-}
-
-// Gets the left margin.
-func (p *Input) LeftMargin() float32 {
-	return p.leftMargin
-}
-
-// sets the left margin.
-func (p *Input) SetLeftMargin(value float32) {
-	p.leftMargin = value
-}
-
-// Gets the right margin.
-func (p *Input) RightMargin() float32 {
-	return p.rightMargin
-}
-
-// sets the right margin.
-func (p *Input) SetRightMargin(value float32) {
-	p.rightMargin = value
 }
 
 func (p *Input) MarshalJSON() ([]byte, error) {
