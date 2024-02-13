@@ -1,4 +1,4 @@
-module github.com/dynamicpdf-api/go-client
+module github.com/dynamicpdf-api/go-client/v2
 
 go 1.17
 
