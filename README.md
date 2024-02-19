@@ -1,3 +1,5 @@
+![](./logo-banner2.png)
+
 DynamicPDF Cloud API - Go Client
 ================================
 
