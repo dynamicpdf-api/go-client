@@ -1,9 +1,9 @@
 ![](./logo-banner2.png)
 
-DynamicPDF Cloud API - Go Client
+DynamicPDF API - Go Client
 ================================
 
-Go client library for the DynamicPDF Cloud API. For more information please visit [DynamicPDF Cloud API](https://cloud.dynamicpdf.com/ "DynamicPDF Cloud API Homepage")
+Go client library for the DynamicPDF API. For more information please visit [DynamicPDF API](https://cloud.dynamicpdf.com/ "DynamicPDF Cloud API Homepage")
 
 The DynamicPDF API consists of the following endpoints.
 
