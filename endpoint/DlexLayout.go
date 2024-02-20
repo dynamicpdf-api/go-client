@@ -5,7 +5,7 @@ import (
 	"io"
 	"mime/multipart"
 
-	"github.com/dynamicpdf-api/go-client/resource"
+	"github.com/dynamicpdf-api/go-client/v2/resource"
 )
 
 // Represents a Dlex layout endpoint.

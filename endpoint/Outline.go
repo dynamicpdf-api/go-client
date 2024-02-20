@@ -3,8 +3,8 @@ package endpoint
 import (
 	"encoding/json"
 
-	"github.com/dynamicpdf-api/go-client/color"
-	"github.com/dynamicpdf-api/go-client/input"
+	"github.com/dynamicpdf-api/go-client/v2/color"
+	"github.com/dynamicpdf-api/go-client/v2/input"
 )
 
 // Represents an outline.

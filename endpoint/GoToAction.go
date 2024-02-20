@@ -3,7 +3,7 @@ package endpoint
 import (
 	"encoding/json"
 
-	"github.com/dynamicpdf-api/go-client/input"
+	"github.com/dynamicpdf-api/go-client/v2/input"
 )
 
 // Represents a goto action in a PDF document that navigates to a specific page using page number and zoom options.

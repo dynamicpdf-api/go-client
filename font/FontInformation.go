@@ -1,6 +1,6 @@
 package font
 
-import "github.com/dynamicpdf-api/go-client/resource"
+import "github.com/dynamicpdf-api/go-client/v2/resource"
 
 type FontInformation struct {
 	resource.Resource

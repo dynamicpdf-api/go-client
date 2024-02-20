@@ -3,7 +3,7 @@ package font
 import (
 	"strconv"
 
-	"github.com/dynamicpdf-api/go-client/resource"
+	"github.com/dynamicpdf-api/go-client/v2/resource"
 	"github.com/google/uuid"
 )
 

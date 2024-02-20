@@ -3,8 +3,8 @@ package element
 import (
 	"encoding/json"
 
-	"github.com/dynamicpdf-api/go-client/font"
-	"github.com/dynamicpdf-api/go-client/resource"
+	"github.com/dynamicpdf-api/go-client/v2/font"
+	"github.com/dynamicpdf-api/go-client/v2/resource"
 )
 
 // Base class from which all page elements are derived.

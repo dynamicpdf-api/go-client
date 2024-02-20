@@ -6,10 +6,10 @@ import (
 	"io"
 	"mime/multipart"
 
-	"github.com/dynamicpdf-api/go-client/element"
-	"github.com/dynamicpdf-api/go-client/font"
-	"github.com/dynamicpdf-api/go-client/input"
-	"github.com/dynamicpdf-api/go-client/resource"
+	"github.com/dynamicpdf-api/go-client/v2/element"
+	"github.com/dynamicpdf-api/go-client/v2/font"
+	"github.com/dynamicpdf-api/go-client/v2/input"
+	"github.com/dynamicpdf-api/go-client/v2/resource"
 )
 
 // Represents a pdf endpoint.

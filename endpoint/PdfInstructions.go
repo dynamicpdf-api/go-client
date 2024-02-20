@@ -3,9 +3,9 @@ package endpoint
 import (
 	"encoding/json"
 
-	"github.com/dynamicpdf-api/go-client/element"
-	"github.com/dynamicpdf-api/go-client/font"
-	"github.com/dynamicpdf-api/go-client/input"
+	"github.com/dynamicpdf-api/go-client/v2/element"
+	"github.com/dynamicpdf-api/go-client/v2/font"
+	"github.com/dynamicpdf-api/go-client/v2/input"
 )
 
 // Represents the pdf information.

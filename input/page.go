@@ -3,7 +3,7 @@ package input
 import (
 	"encoding/json"
 
-	"github.com/dynamicpdf-api/go-client/element"
+	"github.com/dynamicpdf-api/go-client/v2/element"
 	"github.com/google/uuid"
 )
 

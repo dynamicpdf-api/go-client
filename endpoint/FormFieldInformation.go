@@ -1,6 +1,6 @@
 package endpoint
 
-import "github.com/dynamicpdf-api/go-client/resource"
+import "github.com/dynamicpdf-api/go-client/v2/resource"
 
 /*
  Represents the form field information containing the collection

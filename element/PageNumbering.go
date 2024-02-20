@@ -3,9 +3,9 @@ package element
 import (
 	"encoding/json"
 
-	"github.com/dynamicpdf-api/go-client/color"
+	"github.com/dynamicpdf-api/go-client/v2/color"
 
-	"github.com/dynamicpdf-api/go-client/font"
+	"github.com/dynamicpdf-api/go-client/v2/font"
 )
 
 // Represents a page numbering label page element.
