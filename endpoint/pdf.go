@@ -149,7 +149,7 @@ func (p *Pdf) AddPdfCloudPath(cloudResourcePath string, option input.MergeOption
 
 /*
 Returns a `ImageInput` object containing the input pdf.
-  - @param {PdfResource} value The resource of type `ImageResource`.
+  - @param {ImageResource} value The resource of type `ImageResource`.
   - @returns ImageInput
 */
 func (p *Pdf) AddImage(resource resource.ImageResource) *input.Image {
@@ -165,6 +165,49 @@ Returns a `ImageInput` object containing the input pdf.
 */
 func (p *Pdf) AddImageCloudPath(cloudResourcePath string) *input.Image {
 	var input = input.NewImageWithResourcePath(cloudResourcePath)
+	p.Inputs = append(p.Inputs, input)
+	return input
+}
+
+/*
+Returns a `HtmlInput` object containing the input pdf.
+  - @param {HtmlResource} value The resource of type `HtmlResource`.
+  - @returns HtmlInput
+*/
+func (p *Pdf) AddHtml(resource resource.HtmlResource) *input.Html {
+	var input = input.NewHtmlInputWithResource(resource)
+	p.Inputs = append(p.Inputs, input)
+	return input
+}
+
+/*
+Returns a `HtmlInput` object containing the input pdf.
+  - @param {string} html The HTML input string.
+  - @param {string} resource The name of the resource
+  - @returns HtmlInput
+*/
+func (p *Pdf) AddHtmlString(html string, resourceName string) *input.Html {
+	return p.AddHtml(resource.NewHtmlResource(html, resourceName))
+}
+
+/*
+Returns a `WordInput` object containing the input pdf.
+  - @param {WordResource} value The resource of type `WordResource`.
+  - @returns WordInput
+*/
+func (p *Pdf) AddWord(resource resource.WordResource) *input.Word {
+	var input = input.NewWordInputWithResource(resource)
+	p.Inputs = append(p.Inputs, input)
+	return input
+}
+
+/*
+Returns a `ExcelInput` object containing the input pdf.
+  - @param {ExcelResource} value The resource of type `ExcelResource`.
+  - @returns ExcelInput
+*/
+func (p *Pdf) AddExcel(resource resource.ExcelResource) *input.Excel {
+	var input = input.NewExcelInputWithResource(resource)
 	p.Inputs = append(p.Inputs, input)
 	return input
 }

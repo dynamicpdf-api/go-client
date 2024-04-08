@@ -22,4 +22,7 @@ const (
 
 	//Word input
 	WordInput InputType = "word"
+
+	//Excel input
+	ExcelInput InputType = "excel"
 )

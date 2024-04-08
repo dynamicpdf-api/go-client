@@ -5,17 +5,17 @@ import (
 	"github.com/google/uuid"
 )
 
-// Represents a Word input.
-type Word struct {
+// Represents a Excel input.
+type Excel struct {
 	Converter
 }
 
 /*
-Initializes a new instance of the `WordInput` class.
-  - @param { string} input The Word embeded as a string.
+Initializes a new instance of the `ExcelInput` class.
+  - @param { string} input The Excel embeded as a string.
 */
-func NewWordInputWithResource(resources resource.WordResource) *Word {
-	var p Word
+func NewExcelInputWithResource(resources resource.ExcelResource) *Excel {
+	var p Excel
 	p.resources = append(p.resources, resources.Resource)
 	p.SetId(uuid.NewString())
 	p.inputType = p.InputType()
@@ -26,10 +26,10 @@ func NewWordInputWithResource(resources resource.WordResource) *Word {
 	return &p
 }
 
-func (p *Word) Resources() []resource.Resource {
+func (p *Excel) Resources() []resource.Resource {
 	return p.resources
 }
 
-func (p *Word) InputType() InputType {
-	return WordInput
+func (p *Excel) InputType() InputType {
+	return ExcelInput
 }

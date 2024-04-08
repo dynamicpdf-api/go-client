@@ -17,4 +17,6 @@ const (
 	HtmlResourceType ResourceType = 5
 	//Word Resource
 	WordResourceType ResourceType = 6
+	//Excel Resource
+	ExcelResourceType ResourceType = 7
 )
