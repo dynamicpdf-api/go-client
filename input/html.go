@@ -24,9 +24,6 @@ func NewHtmlInputWithString(inputString string) *Html {
 	ep = resource.HtmlResource{Resource: *resource.NewResourceWithByteValue(resourceData, name)}
 	p.resources = append(p.resources, ep.Resource)
 	p.inputType = p.InputType()
-	p.getPaperSize(Letter)
-	p.SetPageHeight(p.larger)
-	p.SetPageWidth(p.smaller)
 	p.ResourceName = ep.ResourceName
 	return &p
 }
@@ -40,9 +37,6 @@ func NewHtmlInputWithResource(resource resource.HtmlResource) *Html {
 	p.resources = append(p.resources, resource.Resource)
 	p.SetId(uuid.NewString())
 	p.inputType = p.InputType()
-	p.getPaperSize(Letter)
-	p.SetPageHeight(p.larger)
-	p.SetPageWidth(p.smaller)
 	p.ResourceName = resource.ResourceName
 	return &p
 }

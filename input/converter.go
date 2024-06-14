@@ -77,10 +77,12 @@ func (p *Converter) SetPageSize(value PageSize) {
 	p.pageSize = value
 	p.getPaperSize(value)
 	if p.pageOrientation == Landscape {
-		p.applyOrientation(Landscape)
+		p.pageHeight = p.smaller
+		p.pageWidth = p.larger
+	} else {
+		p.pageHeight = p.larger
+		p.pageWidth = p.smaller
 	}
-	p.pageHeight = p.larger
-	p.pageWidth = p.smaller
 }
 
 // Gets the PageOrientation.
@@ -91,11 +93,20 @@ func (p *Converter) PageOrientation() Orientation {
 // sets the PageOrientation.
 func (p *Converter) SetPageOrientation(value Orientation) {
 	p.pageOrientation = value
-	if p.pageOrientation == Landscape {
-		p.applyOrientation(Landscape)
+	if p.pageWidth > p.pageHeight {
+		p.smaller = p.pageHeight
+		p.larger = p.pageWidth
+	} else {
+		p.smaller = p.pageWidth
+		p.larger = p.pageHeight
 	}
-	p.pageHeight = p.larger
-	p.pageWidth = p.smaller
+	if p.pageOrientation == Landscape {
+		p.pageHeight = p.smaller
+		p.pageWidth = p.larger
+	} else {
+		p.pageHeight = p.larger
+		p.pageWidth = p.smaller
+	}
 }
 
 func (p *Converter) applyOrientation(value Orientation) {

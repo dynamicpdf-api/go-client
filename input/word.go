@@ -19,9 +19,6 @@ func NewWordInputWithResource(resources resource.WordResource) *Word {
 	p.resources = append(p.resources, resources.Resource)
 	p.SetId(uuid.NewString())
 	p.inputType = p.InputType()
-	p.getPaperSize(Letter)
-	p.SetPageHeight(p.larger)
-	p.SetPageWidth(p.smaller)
 	p.ResourceName = resources.ResourceName
 	return &p
 }
