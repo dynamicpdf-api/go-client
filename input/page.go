@@ -40,6 +40,26 @@ func NewPageWithDimension(width float32, height float32) *Page {
 	return &p
 }
 
+/*
+Initializes a new instance of the `PageInput` class.
+  - @param {PageSize} pageSize The size of the page.
+  - @param {Orientation} Orientation The orientation of the page.
+  - @param {float32} margins The margins of the page.
+*/
+func NewPageWithSizeAndOrientation(pageSize PageSize, pageOrientation Orientation, margins float32) *Page {
+	var p Page
+	p.Elements = []element.ElementCollector{}
+	p.SetId(uuid.NewString())
+	p.inputType = p.InputType()
+	p.SetPageSize(pageSize)
+	p.SetPageOrientation(pageOrientation)
+	p.SetTopMargin(margins)
+	p.SetBottomMargin(margins)
+	p.SetRightMargin(margins)
+	p.SetLeftMargin(margins)
+	return &p
+}
+
 func (p *Page) InputType() InputType {
 	return PageInput
 }
@@ -117,10 +137,12 @@ func (p *Page) SetPageSize(value PageSize) {
 	p.pageSize = value
 	p.getPaperSize(value)
 	if p.pageOrientation == Landscape {
-		p.applyOrientation(Landscape)
+		p.pageHeight = p.smaller
+		p.pageWidth = p.larger
+	} else {
+		p.pageHeight = p.larger
+		p.pageWidth = p.smaller
 	}
-	p.pageHeight = p.larger
-	p.pageWidth = p.smaller
 }
 
 // Gets the PageOrientation.
@@ -131,19 +153,22 @@ func (p *Page) PageOrientation() Orientation {
 // sets the PageOrientation.
 func (p *Page) SetPageOrientation(value Orientation) {
 	p.pageOrientation = value
+	if p.pageWidth > p.pageHeight {
+		p.smaller = p.pageHeight
+		p.larger = p.pageWidth
+	} else {
+		p.smaller = p.pageWidth
+		p.larger = p.pageHeight
+	}
 	if p.pageOrientation == Landscape {
-		p.applyOrientation(Landscape)
-	}
-	p.pageHeight = p.larger
-	p.pageWidth = p.smaller
-}
-func (p *Page) applyOrientation(value Orientation) {
-	if value == Landscape {
-		var temp = p.smaller
-		p.smaller = p.larger
-		p.larger = temp
+		p.pageHeight = p.smaller
+		p.pageWidth = p.larger
+	} else {
+		p.pageHeight = p.larger
+		p.pageWidth = p.smaller
 	}
 }
+
 func (p *Page) getPaperSize(size PageSize) {
 	switch size {
 	case Letter:
