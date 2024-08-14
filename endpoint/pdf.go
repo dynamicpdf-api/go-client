@@ -3,6 +3,7 @@ package endpoint
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io"
 	"mime/multipart"
 
@@ -83,6 +84,9 @@ func (p *Pdf) GetInstructionsJson(indent bool) *bytes.Buffer {
 		}
 		res := input1.Resources()
 		finalResource = append(finalResource, res...)
+
+		finalResource = append(finalResource, p.finalResource...)
+
 		if len(input1.Template().Id) > 0 {
 			p.pdfInstruction.template = append(p.pdfInstruction.template, input1.Template())
 			if input1.Template().Elements != nil {
@@ -121,6 +125,48 @@ func (p *Pdf) BaseUrl() string {
 
 func (p *Pdf) ApiKey() string {
 	return p.Endpoint.ApiKey
+}
+
+/*
+Adds additional resource to the endpoint.
+  - @param {resourcePath} The resource file path.
+  - @param {resourceName} The name of the resource.
+*/
+func (p *Pdf) AddAdditionalResource(resourcePath string, resourceName string) resource.Resource {
+	additionalResource := resource.NewAdditionalResource(resourcePath, resourceName)
+	if additionalResource.ResourceType() == resource.LayoutDataResourceType {
+		errors.New("Layout data resources cannot be added to a DlexLayout object.")
+	} else if additionalResource.ResourceType() == resource.DlexResourceType {
+		errors.New("Dlex resources cannot be added to a DlexLayout object.")
+	} else {
+		p.finalResource = append(p.finalResource, additionalResource.Resource)
+	}
+	return additionalResource.Resource
+}
+
+/*
+Adds additional resource to the endpoint.
+  - @param {resourceData} The resource data.
+  - @param {additionalResourceType} The type of the additional resource.
+  - @param {resourceName} The name of the resource.
+*/
+func (p *Pdf) AddAdditionalResourceWithBytes(resourceData []byte, additionalResourceType resource.AdditionalResourceType, resourceName string) resource.Resource {
+	typ := resource.PdfResourceType
+	switch additionalResourceType {
+	case resource.Font:
+		typ = resource.FontResourceType
+	case resource.Image:
+		typ = resource.ImageResourceType
+	case resource.Pdf:
+		typ = resource.PdfResourceType
+	case resource.Html:
+		typ = resource.HtmlResourceType
+	default:
+		errors.New("This type of resource not allowed")
+	}
+	additionalResource := resource.NewAdditionalResourceWithByteValue(resourceData, resourceName, typ)
+	p.finalResource = append(p.finalResource, additionalResource.Resource)
+	return additionalResource.Resource
 }
 
 /*

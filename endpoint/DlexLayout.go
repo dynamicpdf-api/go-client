@@ -2,6 +2,7 @@ package endpoint
 
 import (
 	"bytes"
+	"errors"
 	"io"
 	"mime/multipart"
 
@@ -15,7 +16,7 @@ type Dlex struct {
 	resource resource.LayoutDataResource
 
 	// Gets or sets the DLEX file path present in the resource manager.
-	DlexPath string `json:"dlexPath,omitempty"`
+	DlexPath  string `json:"dlexPath,omitempty"`
 	Resources []resource.Resource
 }
 
@@ -52,9 +53,39 @@ Adds additional resource to the endpoint.
   - @param {resourcePath} The resource file path.
   - @param {resourceName} The name of the resource.
 */
-func NewDlexWithAdditionalResource(resourcePath string, resourceName string) resource.Resource {
-	additionalResource := resource.NewResourceWithPath(resourcePath, resourceName)
-	return additionalResource
+func (p *Dlex) AddAdditionalResource(resourcePath string, resourceName string) resource.Resource {
+	additionalResource := resource.NewAdditionalResource(resourcePath, resourceName)
+	if additionalResource.ResourceType() == resource.LayoutDataResourceType {
+		errors.New("Layout data resources cannot be added to a DlexLayout object.")
+	} else if additionalResource.ResourceType() == resource.DlexResourceType {
+		errors.New("Dlex resources cannot be added to a DlexLayout object.")
+	} else {
+		p.Resources = append(p.Resources, additionalResource.Resource)
+	}
+	return additionalResource.Resource
+}
+
+/*
+Adds additional resource to the endpoint.
+  - @param {resourceData} The resource data.
+  - @param {additionalResourceType} The type of the additional resource.
+  - @param {resourceName} The name of the resource.
+*/
+func (p *Dlex) AddAdditionalResourceWithBytes(resourceData []byte, additionalResourceType resource.AdditionalResourceType, resourceName string) resource.Resource {
+	typ := resource.PdfResourceType
+	switch additionalResourceType {
+	case resource.Font:
+		typ = resource.FontResourceType
+	case resource.Image:
+		typ = resource.ImageResourceType
+	case resource.Pdf:
+		typ = resource.PdfResourceType
+	default:
+		errors.New("This type of resource not allowed")
+	}
+	additionalResource := resource.NewAdditionalResourceWithByteValue(resourceData, resourceName, typ)
+	p.Resources = append(p.Resources, additionalResource.Resource)
+	return additionalResource.Resource
 }
 
 var _ EndpointProcessor = (*Dlex)(nil)
