@@ -41,8 +41,6 @@ var _ EndpointProcessor = (*Pdf)(nil)
 func NewPdf() *Pdf {
 	var ep Pdf
 
-	ep.Endpoint.BaseUrl = DefaultBaseUrl
-	ep.Endpoint.ApiKey = DefaultApiKey
 	ep.Inputs = []input.InputCollector{}
 	ep.Templates = []element.Template{}
 	ep.pdfInstruction = NewPdfInstruction()
@@ -120,7 +118,11 @@ func (p *Pdf) EndpointName() string {
 }
 
 func (p *Pdf) BaseUrl() string {
-	return p.Endpoint.BaseUrl
+	if p.Endpoint.BaseUrl != "" {
+		return p.Endpoint.BaseUrl
+	} else {
+		return DefaultBaseUrl
+	}
 }
 
 func (p *Pdf) ApiKey() string {

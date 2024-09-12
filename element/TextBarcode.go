@@ -21,7 +21,6 @@ var _ json.Marshaler = (*TextBarcode)(nil)
 
 func NewTextBarcode(value string, placement elementPlacement, xOffset float32, yOffset float32) *TextBarcode {
 	var p = TextBarcode{Barcode: *NewBarcodeWithStringValue(value, placement, xOffset, yOffset)}
-	p.Placement = TopLeft
 	p.typeOfElement = p.ElementType()
 	return &p
 }

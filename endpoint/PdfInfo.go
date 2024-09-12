@@ -27,7 +27,11 @@ func NewPdfInfoResource(resource resource.PdfResource) *PdfInfo {
 var _ EndpointProcessor = (*PdfInfo)(nil)
 
 func (p *PdfInfo) BaseUrl() string {
-	return p.Endpoint.BaseUrl
+	if p.Endpoint.BaseUrl != "" {
+		return p.Endpoint.BaseUrl
+	} else {
+		return DefaultBaseUrl
+	}
 }
 
 func (p *PdfInfo) ApiKey() string {
@@ -44,7 +48,7 @@ Process the pdf resource to get pdf's information.
 */
 func (p *PdfInfo) Process() <-chan PdfInfoResponse {
 	restResponse := make(chan PdfInfoResponse)
-	postUrl := strings.TrimSuffix(p.Endpoint.BaseUrl, "/") + "/v1.0/" + p.EndpointName()
+	postUrl := strings.TrimSuffix(p.BaseUrl(), "/") + "/v1.0/" + p.EndpointName()
 	postAuth := "Bearer " + p.Endpoint.ApiKey
 	go func() {
 		res, err := postHttpRequest(postUrl, p.resource.Data(), postAuth, "application/pdf")

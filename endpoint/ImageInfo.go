@@ -27,7 +27,11 @@ func NewImageInfo(image resource.ImageResource) *ImageInfo {
 var _ EndpointProcessor = (*ImageInfo)(nil)
 
 func (p *ImageInfo) BaseUrl() string {
-	return p.Endpoint.BaseUrl
+	if p.Endpoint.BaseUrl != "" {
+		return p.Endpoint.BaseUrl
+	} else {
+		return DefaultBaseUrl
+	}
 }
 
 func (p *ImageInfo) ApiKey() string {
@@ -44,7 +48,7 @@ Process the image resource to get image's information.
 */
 func (p *ImageInfo) Process() <-chan ImageResponse {
 	restResponse := make(chan ImageResponse)
-	postUrl := strings.TrimSuffix(p.Endpoint.BaseUrl, "/") + "/v1.0/" + p.EndpointName()
+	postUrl := strings.TrimSuffix(p.BaseUrl(), "/") + "/v1.0/" + p.EndpointName()
 	postAuth := "Bearer " + p.Endpoint.ApiKey
 	mtype := mimetype.Detect(p.resource.Data())
 	go func() {

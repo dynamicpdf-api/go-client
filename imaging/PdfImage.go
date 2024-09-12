@@ -45,7 +45,11 @@ func (p *PdfImage) EndpointName() string {
 }
 
 func (p *PdfImage) BaseUrl() string {
-	return p.Endpoint.BaseUrl
+	if p.Endpoint.BaseUrl != "" {
+		return p.Endpoint.BaseUrl
+	} else {
+		return endpoint.DefaultBaseUrl
+	}
 }
 
 func (p *PdfImage) ApiKey() string {
@@ -55,8 +59,6 @@ func (p *PdfImage) ApiKey() string {
 // Initializes a new instance of the PdfImage class with the specified PDF resource.
 func NewPdfImage(resource resource.PdfResource) *PdfImage {
 	var ep PdfImage
-	ep.Endpoint.BaseUrl = endpoint.DefaultBaseUrl
-	ep.Endpoint.ApiKey = endpoint.DefaultApiKey
 	ep.resource = resource
 	return &ep
 }
@@ -83,7 +85,7 @@ func (p *PdfImage) Process() <-chan PdfImageResponse {
 
 		// var response response = response{isSuccessful: false}
 
-		postUrl := strings.TrimSuffix(p.Endpoint.BaseUrl, "/") + "/v1.0/" + p.EndpointName()
+		postUrl := strings.TrimSuffix(p.BaseUrl(), "/") + "/v1.0/" + p.EndpointName()
 
 		u, err := url.Parse(postUrl)
 		if err != nil {
@@ -258,9 +260,9 @@ func (p *PdfImage) Process() <-chan PdfImageResponse {
 		client := &http.Client{}
 		resp, err := client.Do(req)
 
-		if err != nil {
-			pkgLog.Printf("%s\n", err)
-			panic(err)
+		if err != nil || resp.Status != "200 OK" {
+			pkgLog.Printf("\nError: %s\n", err)
+			panic(resp.Status)
 		}
 
 		rasterizerResponse := PdfImageResponse{}

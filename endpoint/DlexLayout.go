@@ -91,7 +91,11 @@ func (p *Dlex) AddAdditionalResourceWithBytes(resourceData []byte, additionalRes
 var _ EndpointProcessor = (*Dlex)(nil)
 
 func (p *Dlex) BaseUrl() string {
-	return p.Endpoint.BaseUrl
+	if p.Endpoint.BaseUrl != "" {
+		return p.Endpoint.BaseUrl
+	} else {
+		return DefaultBaseUrl
+	}
 }
 
 func (p *Dlex) ApiKey() string {

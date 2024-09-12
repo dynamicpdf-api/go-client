@@ -36,7 +36,11 @@ func NewPdfText(resource resource.PdfResource, startpage int, pagecount int) *Pd
 var _ EndpointProcessor = (*PdfText)(nil)
 
 func (p *PdfText) BaseUrl() string {
-	return p.Endpoint.BaseUrl
+	if p.Endpoint.BaseUrl != "" {
+		return p.Endpoint.BaseUrl
+	} else {
+		return DefaultBaseUrl
+	}
 }
 
 func (p *PdfText) ApiKey() string {
@@ -72,7 +76,7 @@ Process the pdf resource to get pdf's text.
 */
 func (p *PdfText) Process() <-chan PdfTextResponse {
 	restResponse := make(chan PdfTextResponse)
-	postUrl := strings.TrimSuffix(p.Endpoint.BaseUrl, "/") + "/v1.0/" + p.EndpointName()
+	postUrl := strings.TrimSuffix(p.BaseUrl(), "/") + "/v1.0/" + p.EndpointName()
 
 	url := postUrl + "/?StartPage=" + strconv.Itoa(p.startPage) + "&PageCount=" + strconv.Itoa(p.pageCount)
 	postAuth := "Bearer " + p.Endpoint.ApiKey

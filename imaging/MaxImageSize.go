@@ -8,7 +8,7 @@ type MaxImageSize struct {
 // Initializes a new instance of the MaxImageSize class.
 func NewMaxImageSize() *MaxImageSize {
 	var ep MaxImageSize
-	ep.Type = Fixed
+	ep.Type = Max
 	return &ep
 }
 
