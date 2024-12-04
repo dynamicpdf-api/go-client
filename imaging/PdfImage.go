@@ -4,7 +4,9 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"mime/multipart"
 	"net/http"
@@ -14,6 +16,7 @@ import (
 
 	"github.com/dynamicpdf-api/go-client/v2/endpoint"
 	"github.com/dynamicpdf-api/go-client/v2/resource"
+	"github.com/google/uuid"
 )
 
 var (
@@ -64,7 +67,7 @@ func NewPdfImage(resource resource.PdfResource) *PdfImage {
 }
 
 func (p *PdfImage) Process() <-chan PdfImageResponse {
-	restResponse := make(chan PdfImageResponse)
+	rasterizerResponse := make(chan PdfImageResponse)
 	go func() {
 		var form formData
 		form.content = bytes.NewBuffer(nil)
@@ -73,17 +76,15 @@ func (p *PdfImage) Process() <-chan PdfImageResponse {
 
 		part, err := formWriter.CreateFormFile("pdf", p.resource.ResourceName)
 		if err != nil {
-			panic(err)
+			return
 		}
 		resourceData := bytes.NewBuffer(p.resource.Data())
 		io.Copy(part, resourceData)
 
 		err = formWriter.Close()
 		if err != nil {
-			panic(err)
+			return
 		}
-
-		// var response response = response{isSuccessful: false}
 
 		postUrl := strings.TrimSuffix(p.BaseUrl(), "/") + "/v1.0/" + p.EndpointName()
 
@@ -248,56 +249,86 @@ func (p *PdfImage) Process() <-chan PdfImageResponse {
 
 		postAuth := "Bearer " + p.Endpoint.ApiKey
 
-		ctx := context.TODO() // TODO: Need to add a context property for user to be able to cancel/timeout the request.
-		req, err := http.NewRequestWithContext(ctx, "POST", u.String(), form.content)
+		res, err := postFormRast(form, postAuth, u.String())
 		if err != nil {
-			pkgLog.Printf("%s\n", err)
-			panic(err)
+			res.clientError = err
 		}
+		rastResponse := PdfImageResponse{response: res}
 
-		req.Header.Add("Authorization", postAuth)
-		req.Header.Add("Content-Type", form.contentType)
-		client := &http.Client{}
-		resp, err := client.Do(req)
+		if res.statusCode == 200 {
 
-		if err != nil || resp.Status != "200 OK" {
-			pkgLog.Printf("\nError: %s\n", err)
-			panic(resp.Status)
-		}
+			bodyBytes, _ := io.ReadAll(res.content)
 
-		rasterizerResponse := PdfImageResponse{}
-
-		if resp.Status == "200 OK" {
-			bodyBytes, err := io.ReadAll(resp.Body)
-			if err != nil {
-				panic(err)
-			}
 			decoder := json.NewDecoder(bytes.NewReader([]byte(bodyBytes)))
-
-			var pdfImageResponse PdfImageResponse
-			err = decoder.Decode(&pdfImageResponse)
+			var pdfImgResp PdfImageResponse
+			err = decoder.Decode(&pdfImgResp)
 			if err != nil {
 				panic(err)
 			}
 
-			imageType := pdfImageResponse.ContentType
-			rasterizerResponse.ContentType = imageType
-			rasterizerResponse.HorizontalDpi = pdfImageResponse.HorizontalDpi
-			rasterizerResponse.VerticalDpi = pdfImageResponse.VerticalDpi
-			rasterizerResponse.Images = pdfImageResponse.Images
-			rasterizerResponse.ImageFormat = strings.Split(imageType, "/")[1]
+			imageType := pdfImgResp.ContentType
+			rastResponse.ContentType = imageType
+			rastResponse.HorizontalDpi = pdfImgResp.HorizontalDpi
+			rastResponse.VerticalDpi = pdfImgResp.VerticalDpi
+			rastResponse.Images = pdfImgResp.Images
+			rastResponse.ImageFormat = strings.Split(imageType, "/")[1]
 
-			rasterizerResponse.isSuccessful = true
-			rasterizerResponse.statusCode = resp.StatusCode
-		} else {
-			rasterizerResponse.isSuccessful = false
-			rasterizerResponse.statusCode = resp.StatusCode
-			rasterizerResponse.errorJson = resp.Status
-			rasterizerResponse.clientError = err
+			rastResponse.isSuccessful = true
+			rastResponse.statusCode = res.statusCode
 		}
-		restResponse <- rasterizerResponse
+
+		rasterizerResponse <- rastResponse
 	}()
-	return restResponse
+
+	return rasterizerResponse
+}
+
+func postFormRast(form formData, postAuth string, postUrl string) (response, error) {
+	var response response = response{isSuccessful: false}
+
+	var httpClient http.Client
+	ctx := context.TODO() // TODO: Need to add a context property for user to be able to cancel/timeout the request.
+	req, err := http.NewRequestWithContext(ctx, "POST", postUrl, form.content)
+	if err != nil {
+		pkgLog.Printf("%s\n", err)
+		return response, err
+	}
+
+	req.Header.Add("Authorization", postAuth)
+	req.Header.Add("Content-Type", form.contentType)
+	resp, err := httpClient.Do(req)
+	if err != nil || resp.Status != "200 OK" {
+		pkgLog.Printf("\nError: %s\n", err)
+		response.statusCode = resp.StatusCode
+		body, _ := io.ReadAll(resp.Body)
+		response.errorJson = string(body)
+		var errorId string
+		var errorJson map[string]string
+		json.Unmarshal([]byte(response.errorJson), &errorJson)
+		errorId = errorJson["id"]
+		if errorId != "" {
+			response.errorId, _ = uuid.Parse(errorJson["id"])
+		}
+		response.errorMessage = errorJson["message"]
+		response.clientError = err
+		return response, err
+	}
+	pkgLog.Println("response Status:", resp.Status)
+	headers := ""
+	for k, v := range resp.Header {
+		headers += fmt.Sprintln("\t", k, "\t:", v)
+	}
+	pkgLog.Println("response Headers:\n", headers)
+
+	body, e := ioutil.ReadAll(resp.Body)
+
+	if e == nil && err == nil {
+		response.clientError = err
+		response.isSuccessful = true
+		response.statusCode = resp.StatusCode
+		response.content = bytes.NewBuffer(body)
+	}
+	return response, err
 }
 
 type formData struct {

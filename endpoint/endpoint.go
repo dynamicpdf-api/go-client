@@ -3,12 +3,15 @@ package endpoint
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/google/uuid"
 )
 
 var (
@@ -64,10 +67,18 @@ func postForm(form formData, endPoint EndpointProcessor) (response, error) {
 	resp, err := httpClient.Do(req)
 	if err != nil || resp.Status != "200 OK" {
 		pkgLog.Printf("\nError: %s\n", err)
-		response.statusCode = resp.StatusCode
-		response.errorMessage = resp.Status
+
 		body, _ := io.ReadAll(resp.Body)
 		response.errorJson = string(body)
+		var errorId string
+		var errorJson map[string]string
+		json.Unmarshal([]byte(response.errorJson), &errorJson)
+		errorId = errorJson["id"]
+		if errorId != "" {
+			response.errorId, _ = uuid.Parse(errorJson["id"])
+		}
+		response.errorMessage = errorJson["message"]
+		response.statusCode = resp.StatusCode
 		response.clientError = err
 		return response, err
 	}
@@ -101,7 +112,17 @@ func postHttpRequest(url string, data []byte, api string, contentType string) (J
 	if httpErr != nil || httpResponse.StatusCode != 200 {
 		pkgLog.Printf("\nError: %sn", httpErr)
 		response.statusCode = httpResponse.StatusCode
-		response.errorJson = httpResponse.Status
+		body, _ := io.ReadAll(httpResponse.Body)
+		response.errorJson = string(body)
+		var errorId string
+		var errorJson map[string]string
+		json.Unmarshal([]byte(response.errorJson), &errorJson)
+		errorId = errorJson["id"]
+		if errorId != "" {
+			response.errorId, _ = uuid.Parse(errorJson["id"])
+		}
+		response.errorMessage = errorJson["message"]
+		response.statusMessage = httpResponse.Status
 		response.clientError = httpErr
 		return response, httpErr
 	}
