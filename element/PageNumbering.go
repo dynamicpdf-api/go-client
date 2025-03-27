@@ -11,7 +11,7 @@ import (
 // Represents a page numbering label page element.
 type PageNumbering struct {
 	Element
-
+	font  font.Font
 	color color.Color
 }
 
@@ -75,4 +75,8 @@ func (p *PageNumbering) FontSize() float32 {
 // Sets the font size for the text of the label.
 func (p *PageNumbering) SetFontSize(value float32) {
 	p.fontSize = value
+}
+
+func (p *PageNumbering) TextFont() font.Font {
+	return p.font
 }

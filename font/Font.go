@@ -36,6 +36,13 @@ func NewFontResource(path string, resourceName string) *Font {
 	return &p
 }
 
+func NewFontCloudResource(cloudResourceName string) *Font {
+	var p Font
+	p.ResourceName = cloudResourceName
+	p.Name = uuid.NewString()
+	return &p
+}
+
 // Gets the Times Italic core font with Latin 1 encoding.
 func TimesItalic() Font {
 	return Font{Name: "timesItalic"}
