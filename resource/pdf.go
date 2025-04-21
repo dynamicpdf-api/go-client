@@ -23,10 +23,10 @@ func NewPdfResourceWithResourcePath(resource string, resourceName string) PdfRes
   * @param {Byte[]}The byte array of the pdf file.
   * @param {string} resourceName The name of the resource.
 */
-func NewPdfResourceWithByteValue(resource string, resourceName string) PdfResource {
+func NewPdfResourceWithByteValue(value []byte, resourceName string) PdfResource {
 	var ep PdfResource
 	ep.typeOfResource = ep.ResourceType()
-	ep = PdfResource{Resource: NewResourceWithPath(resource, resourceName)}
+	ep = PdfResource{Resource: *NewResourceWithByteValue(value, resourceName)}
 	return ep
 }
 

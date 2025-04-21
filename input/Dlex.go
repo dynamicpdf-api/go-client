@@ -28,7 +28,7 @@ func NewDlexWithDlexNLayoutResources(dlexResource resource.DlexResource, layoutD
 	var p Dlex
 	p.inputType = p.InputType()
 	p.ResourceName = dlexResource.ResourceName
-	p.LayoutDataResourceName = layoutData.ResourceName
+	p.LayoutDataResourceName = layoutData.LayoutDataResourceName
 	p.resources = append(p.resources, dlexResource.Resource)
 	p.resources = append(p.resources, layoutData.Resource)
 	return &p
@@ -49,7 +49,7 @@ func NewDlexWithDlexResourceNLayoutDataPath(dlexResource resource.DlexResource, 
 	p.inputType = p.InputType()
 	p.ResourceName = dlexResource.ResourceName
 	layoutDataResource := resource.NewLayoutDataResource(layoutData, "")
-	p.LayoutDataResourceName = layoutDataResource.ResourceName
+	p.LayoutDataResourceName = layoutDataResource.LayoutDataResourceName
 	p.resources = append(p.resources, dlexResource.Resource)
 	p.resources = append(p.resources, layoutDataResource.Resource)
 	return &p
@@ -69,7 +69,7 @@ func NewDlexWithCloudResourceNLayoutData(cloudResourcePath string, layoutData re
 	var p Dlex
 	p.inputType = p.InputType()
 	p.ResourceName = cloudResourcePath
-	p.LayoutDataResourceName = layoutData.ResourceName
+	p.LayoutDataResourceName = layoutData.LayoutDataResourceName
 	p.resources = append(p.resources, layoutData.Resource)
 	return &p
 }
@@ -89,7 +89,7 @@ func NewDlexWithCloudResourceNLayoutDataPath(cloudResourcePath string, layoutDat
 	p.inputType = p.InputType()
 	p.ResourceName = cloudResourcePath
 	layoutDataResource := resource.NewLayoutDataResource(layoutData, "")
-	p.LayoutDataResourceName = layoutDataResource.ResourceName
+	p.LayoutDataResourceName = layoutDataResource.LayoutDataResourceName
 	p.resources = append(p.resources, layoutDataResource.Resource)
 	return &p
 }

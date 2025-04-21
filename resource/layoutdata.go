@@ -1,5 +1,7 @@
 package resource
 
+import "github.com/google/uuid"
+
 // Represents the Layout data resource used to create PDF reports.
 type LayoutDataResource struct {
 	Resource
@@ -16,8 +18,14 @@ func NewLayoutDataResource(filepath string, layoutdataresourcename string) Layou
 	ep = LayoutDataResource{Resource: NewResourceWithPath(filepath, layoutdataresourcename)}
 	ep.typeOfResource = ep.ResourceType()
 	ep.LayoutDataResourceName = layoutdataresourcename
+	if layoutdataresourcename == "" {
+		ep.LayoutDataResourceName = uuid.New().String() + ".json"
+	} else {
+		ep.LayoutDataResourceName = layoutdataresourcename
+	}
 	return ep
 }
+
 func (p LayoutDataResource) ResourceType() ResourceType {
 	return LayoutDataResourceType
 }
