@@ -17,6 +17,8 @@ type PdfText struct {
 	startPage int
 
 	pageCount int
+
+	textOrder TextOrder
 }
 
 /*
@@ -30,6 +32,22 @@ func NewPdfText(resource resource.PdfResource, startpage int, pagecount int) *Pd
 	ep.resource = resource
 	ep.startPage = startpage
 	ep.pageCount = pagecount
+	return &ep
+}
+
+/*
+Initializes a new instance of the `PdfText` class.
+  - @param { PdfResource } resource The image resource of type `PdfResource`.`
+  - @param { int } startPage The start page.
+  - @param { int } pageCount The page count.
+  - @param { TextOrder } textOrder The text extraction order.
+*/
+func NewPdfTextWithOrder(resource resource.PdfResource, startpage int, pagecount int, textOrder TextOrder) *PdfText {
+	var ep PdfText
+	ep.resource = resource
+	ep.startPage = startpage
+	ep.pageCount = pagecount
+	ep.textOrder = textOrder
 	return &ep
 }
 
@@ -53,7 +71,7 @@ func (p *PdfText) StartPage() int {
 }
 
 // Sets the start page.
-func (p *PdfText) GetStartPage(startPage int) {
+func (p *PdfText) SetStartPage(startPage int) {
 	p.startPage = startPage
 }
 
@@ -63,9 +81,20 @@ func (p *PdfText) PageCount() int {
 }
 
 // Sets the page count.
-func (p *PdfText) GetPageCount(pageCount int) {
+func (p *PdfText) SetPageCount(pageCount int) {
 	p.pageCount = pageCount
 }
+
+// Gets the text extraction order.
+func (p *PdfText) TextOrder() TextOrder {
+	return p.textOrder
+}
+
+// Sets the text extraction order.
+func (p *PdfText) SetTextOrder(textOrder TextOrder) {
+	p.textOrder = textOrder
+}
+
 func (p *PdfText) EndpointName() string {
 	return "pdf-text"
 }
@@ -79,14 +108,32 @@ func (p *PdfText) Process() <-chan PdfTextResponse {
 	postUrl := strings.TrimSuffix(p.BaseUrl(), "/") + "/v1.0/" + p.EndpointName()
 
 	url := postUrl + "/?StartPage=" + strconv.Itoa(p.startPage) + "&PageCount=" + strconv.Itoa(p.pageCount)
+
+	if p.textOrder != "" {
+		url += "&TextOrder=" + string(p.textOrder)
+	}
+
 	postAuth := "Bearer " + p.Endpoint.ApiKey
 	go func() {
 		res, err := postHttpRequest(url, p.resource.Data(), postAuth, "application/pdf")
 		if err != nil {
 			res.clientError = err
 		}
-		pdfRes := PdfTextResponse{JsonResponse: res}
+
+		bodyBytes := res.content.Bytes()
+
+		var content []PdfContent
+		err = json.Unmarshal(bodyBytes, &content)
+		if err != nil {
+			panic(err)
+		}
+
+		pdfRes := PdfTextResponse{
+			TextContent:  content,
+			JsonResponse: res,
+		}
 		restResponse <- pdfRes
+
 	}()
 	return restResponse
 }
@@ -96,11 +143,13 @@ func (p PdfText) MarshalJSON() ([]byte, error) {
 	return json.Marshal(&struct {
 		StartPage    int                  `json:"startPage,omitempty"`
 		PageCount    int                  `json:"pageCount,omitempty"`
+		TextOrder    TextOrder            `json:"textOrder,omitempty"`
 		ResourceName resource.PdfResource `json:"resourceName,omitempty"`
 		Alias
 	}{
 		StartPage:    p.startPage,
 		PageCount:    p.pageCount,
+		TextOrder:    p.textOrder,
 		ResourceName: p.resource,
 		Alias:        (Alias)(p),
 	})
