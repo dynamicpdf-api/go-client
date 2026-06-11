@@ -2,6 +2,7 @@ package resource
 
 import (
 	"errors"
+	"io"
 )
 
 type FontResource struct {
@@ -13,6 +14,21 @@ func NewFontResource() *FontResource {
 	ep.typeOfResource = ep.ResourceType()
 	return &ep
 }
+
+func NewFontWithResourcePath(filePath string, resourceName string) *FontResource {
+	ep := FontResource{Resource: NewResourceWithPath(filePath, resourceName)}
+	ep.typeOfResource = ep.ResourceType()
+	ep.FileExtension()
+	return &ep
+}
+
+func NewFontWithStreamResource(stream io.Reader, resourceName string) *FontResource {
+	ep := FontResource{Resource: newResourceWithStream(stream, resourceName)}
+	ep.typeOfResource = ep.ResourceType()
+	ep.FileExtension()
+	return &ep
+}
+
 func (p FontResource) ResourceType() ResourceType {
 	return FontResourceType
 }

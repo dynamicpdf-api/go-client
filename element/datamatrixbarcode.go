@@ -45,3 +45,13 @@ func NewDataMatrixWithByteValue(value []byte, placement elementPlacement, xOffse
 func (p *DataMatrix) ElementType() ElementType {
 	return DataMatrixBarcodeElement
 }
+
+// Gets a boolean indicating whether to process the tilde character.
+func (p *DataMatrix) ProcessTilde() bool {
+	return p.processTilde
+}
+
+// Sets a boolean indicating whether to process the tilde character.
+func (p *DataMatrix) SetProcessTilde(value bool) {
+	p.processTilde = value
+}

@@ -331,6 +331,19 @@ func (p *Pdf) AddPage() *input.Page {
 }
 
 /*
+Returns a `PageInput` object containing the input page.
+  - @param {PageSize} pageSize The Size of the page.
+  - @param {Orientation} pageOrientation The Orientation of the page.
+  - @param {float32} margins The Margins of the page.
+  - @returns PageInput
+*/
+func (p *Pdf) AddPageWithSizeOrientationMargins(pageSize input.PageSize, pageOrientation input.Orientation, margins float32) *input.Page {
+	input := input.NewPageWithSizeAndOrientation(pageSize, pageOrientation, margins)
+	p.Inputs = append(p.Inputs, input)
+	return input
+}
+
+/*
 Process to create pdf.
   - @returns A Promise of PdfResponse callback.
 */

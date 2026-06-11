@@ -15,6 +15,11 @@ type Barcode struct {
 var _ ElementCollector = (*Barcode)(nil)
 var _ json.Marshaler = (*Barcode)(nil)
 
+func newBarcodeElement() *Barcode {
+	var p Barcode
+	return &p
+}
+
 func NewBarcodeWithStringValue(value string, placement elementPlacement, xOffset float32, yOffset float32) *Barcode {
 	var p = Barcode{Element: *newElement(value, placement, xOffset, yOffset)}
 	p.value = value

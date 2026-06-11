@@ -15,6 +15,16 @@ type CmykColor struct {
 
 /*
 Initializes a new instance of the 'CmykColor'
+  - @param {string} color. The color of the CmykColor.
+*/
+func newCmykColor(color string) *CmykColor {
+	var ep CmykColor
+	ep.colorString = color
+	return &ep
+}
+
+/*
+Initializes a new instance of the 'CmykColor'
   - @param {float} cyan. The cyan intensity.
   - @param {float} magenta. The magenta intensity.
   - @param {float} yellow. The yellow intensity.
@@ -42,6 +52,10 @@ func (p *CmykColor) White() *CmykColor {
 	return n
 }
 
+/*
+Gets the color string
+  - @return The color string
+*/
 func (p *CmykColor) ColorString() string {
 	if p.colorString != "" {
 		return p.colorString
@@ -50,6 +64,10 @@ func (p *CmykColor) ColorString() string {
 	}
 }
 
+/*
+Sets the color string
+  - @param value The color string
+*/
 func (p *CmykColor) SetColorString(value string) {
 	p.colorString = value
 }

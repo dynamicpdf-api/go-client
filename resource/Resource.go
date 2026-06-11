@@ -3,8 +3,13 @@ package resource
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
+	"path/filepath"
+
+	"github.com/google/uuid"
 )
 
 // Represents the base class resource.
@@ -19,25 +24,49 @@ type Resource struct {
 	data                   []byte
 }
 
-func NewResourceWithPath(input string, resourceName string) Resource {
+func newResource() Resource {
 	var ep Resource
-	ep.ResourceName = resourceName
-	_, err := os.Stat(input)
+	return ep
+}
+
+func NewResourceWithPath(filePath string, resourceName string) Resource {
+	var ep Resource
+	_, err := os.Stat(filePath)
 	if errors.Is(err, os.ErrNotExist) {
 		panic(err)
 	} else {
-		ep.setFilepath(input)
+		ep.setFilepath(filePath)
 		ep.data = ep.getFileData()
+	}
+	if resourceName == "" {
+		ep.ResourceName = uuid.New().String() + ep.fileExtension()
+	} else {
+		ep.ResourceName = resourceName
 	}
 	return ep
 }
 
-func NewResourceWithByteValue(input []byte, resourceName string) *Resource {
+func NewResourceWithByteValue(value []byte, resourceName string) *Resource {
 	var ep Resource
-	ep.ResourceName = resourceName
-	ep.data = input
-	ep.typeOfResource = ep.ResourceType()
+	ep.data = value
+	//ep.typeOfResource = ep.ResourceType()
+	if resourceName == "" {
+		ep.ResourceName = uuid.New().String() + ep.fileExtension()
+	} else {
+		ep.ResourceName = resourceName
+	}
 	return &ep
+}
+
+func newResourceWithStream(stream io.Reader, resourceName string) Resource {
+	var ep Resource
+	ep.data = ep.getStreamData(stream)
+	if resourceName == "" {
+		ep.ResourceName = uuid.New().String() + ep.fileExtension()
+	} else {
+		ep.ResourceName = resourceName
+	}
+	return ep
 }
 
 func (p *Resource) Data() []byte {
@@ -76,8 +105,10 @@ func (p *Resource) filepath() string {
 	return p.filepath1
 }
 
-func (p *Resource) setFilepath(filePath string) {
-	p.filepath1 = filePath
+func (p *Resource) setFilepath(path string) {
+	p.filepath1 = path
+	ext := filepath.Ext(path)
+	p.setFileExtension(ext)
 }
 
 func (p *Resource) getFileData() []byte {
@@ -85,6 +116,19 @@ func (p *Resource) getFileData() []byte {
 	if err == nil {
 		p.data = data
 	}
+	return data
+}
+
+func (p *Resource) getStreamData(input io.Reader) []byte {
+	if input == nil {
+		panic("stream is nil")
+	}
+
+	data, err := io.ReadAll(input)
+	if err != nil {
+		panic(fmt.Sprintf("failed to read stream: %v", err))
+	}
+
 	return data
 }
 

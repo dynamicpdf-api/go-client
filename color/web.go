@@ -6,11 +6,11 @@ type WebColor struct {
 }
 
 /*
-  Initializes a new instance of the `WebColor` class.
-   * @param {string} webHexString. The hexadecimal string representing the color.
+Initializes a new instance of the `WebColor` class.
+  - @param {string} webHexString. The hexadecimal string representing the color.
 */
-func NewWebColor(color string) *WebColor {
+func NewWebColor(webHexString string) *WebColor {
 	var ep WebColor
-	ep.colorString = color
+	ep.colorString = webHexString
 	return &ep
 }

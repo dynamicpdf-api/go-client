@@ -6,13 +6,14 @@ type PngMonochromeColorFormat struct {
 }
 
 /*
-  Initializes a new instance of the PngMonochromeColorFormat class with monochrome color format type.
+Initializes a new instance of the PngMonochromeColorFormat class with monochrome color format type.
 */
 func NewPngMonochromeColorFormat() *PngMonochromeColorFormat {
 	var p = PngMonochromeColorFormat{PngColorFormat: *NewPngColorFormat(Monochrome)}
 	return &p
 }
 
+// SetBlackThreshold sets the black threshold for monochrome PNG images.
 func (p *PngMonochromeColorFormat) SetBlackThreshold(threshold int) {
 	p.blackThreshold = threshold
 }

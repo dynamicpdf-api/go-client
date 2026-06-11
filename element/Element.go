@@ -27,7 +27,6 @@ type Element struct {
 	// Gets or sets the boolean value specifying whether the element should be added to odd pages or not.
 	OddPages bool `json:"oddPages,omitempty"`
 
-	grayLevel                   int
 	width                       float32
 	height                      float32
 	x2Offset                    float32
@@ -78,6 +77,11 @@ type Element struct {
 	resource                    resource.Resource
 }
 
+func newElementDefault() *Element {
+	var p Element
+	return &p
+}
+
 func newElement(value string, placement elementPlacement, xOffset float32, yOffset float32) *Element {
 	var p Element
 	p.textValue = value
@@ -86,6 +90,13 @@ func newElement(value string, placement elementPlacement, xOffset float32, yOffs
 	p.YOffset = yOffset
 	return &p
 }
+
+func newElementWithValue(value string) *Element {
+	var p Element
+	p.textValue = value
+	return &p
+}
+
 func (e *Element) Resources() resource.Resource {
 	return e.resource
 }
@@ -106,13 +117,13 @@ func (p Element) MarshalJSON() ([]byte, error) {
 		ProcessTilde                bool                        `json:"processTilde,omitempty"`
 		SymbolSize                  int                         `json:"symbolSize,omitempty"`
 		AztecErrorCorrection        int                         `json:"aztecErrorCorrection,omitempty"`
-		ReaderInitialization        bool                        `json:"readerInitialization,omitempty"`
+		ReaderInitialization        bool                        `json:"readerInitializationSymbol,omitempty"`
 		UccEan128                   bool                        `json:"uccEan128,omitempty"`
 		IncludeCheckDigit           bool                        `json:"includeCheckDigit,omitempty"`
 		ScaleX                      float32                     `json:"scaleX,omitempty"`
 		ScaleY                      float32                     `json:"scaleY,omitempty"`
-		MaxHeight                   float32                     `json:"MaxHeight,omitempty"`
-		MaxWidth                    float32                     `json:"MaxWidth,omitempty"`
+		MaxHeight                   float32                     `json:"maxHeight,omitempty"`
+		MaxWidth                    float32                     `json:"maxWidth,omitempty"`
 		AppendCheckDigit            int                         `json:"appendCheckDigit,omitempty"`
 		FontSize                    float32                     `json:"fontSize,omitempty"`
 		Columns                     int                         `json:"columns,omitempty"`
@@ -141,6 +152,8 @@ func (p Element) MarshalJSON() ([]byte, error) {
 		FontName                    string                      `json:"font,omitempty"`
 		TextColor                   string                      `json:"textColor,omitempty"`
 		ResourceName                string                      `json:"resourceName,omitempty"`
+		XDimension                  float32                     `json:"xDimension,omitempty"`
+		ShowText                    bool                        `json:"showText,omitempty"`
 		Alias
 	}{
 		Width:                       p.width,
@@ -187,6 +200,8 @@ func (p Element) MarshalJSON() ([]byte, error) {
 		FontName:                    p.fontName,
 		TextColor:                   p.textColorName,
 		ResourceName:                p.resourceName,
+		XDimension:                  p.xDimension,
+		ShowText:                    p.showText,
 		Alias:                       (Alias)(p),
 	})
 }

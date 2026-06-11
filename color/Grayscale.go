@@ -10,6 +10,10 @@ type Grayscalecolor struct {
 	grayLevel float64
 }
 
+/*
+Initializes a new instance of the 'Grayscalecolor' class.
+  - @param {string} color. The color of the Grayscalecolor.
+*/
 func newGrayscalecolor(color string) *Grayscalecolor {
 	var ep Grayscalecolor
 	ep.colorString = color
@@ -37,6 +41,10 @@ func (p *Grayscalecolor) White() string {
 	return p.colorString
 }
 
+/*
+Gets the color string
+  - @return The color string
+*/
 func (p *Grayscalecolor) ColorString() string {
 
 	if p.colorString != "" {
@@ -46,6 +54,10 @@ func (p *Grayscalecolor) ColorString() string {
 	}
 }
 
+/*
+Sets the color string
+  - @param value The color string
+*/
 func (p *Grayscalecolor) SetColorString(value string) {
 	p.colorString = value
 }

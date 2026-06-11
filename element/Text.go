@@ -64,7 +64,11 @@ func (p *Text) Font() font.Font {
 func (p *Text) SetFont(font font.Font) {
 	p.font = font
 	p.fontName = font.Name
-	p.resource = font.Resource
+	p.resource = font.FontResource.Resource
+}
+
+func (p *Text) TextFont() font.Font {
+	return p.font
 }
 
 func (p *Text) TextFont() font.Font {

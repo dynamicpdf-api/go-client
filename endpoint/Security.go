@@ -15,7 +15,7 @@ Older readers will not be able to read documents encrypted with this security.
 type Security struct {
 	Securiter `json:"-"`
 
-	securityType SecurityType
+	Type SecurityType `json:"type"`
 	//Gets or sets the user password.
 	UserPassword string `json:"userPassword,omitempty"`
 
@@ -51,6 +51,11 @@ type Security struct {
 	encryptMetadata bool
 }
 
+func newSecurityDefault() *Security {
+	var p Security
+	return &p
+}
+
 func newSecurity(userPwd string, ownerPwd string) *Security {
 	var p Security
 	p.UserPassword = userPwd
@@ -59,7 +64,7 @@ func newSecurity(userPwd string, ownerPwd string) *Security {
 }
 
 func (p *Security) typeOfSecurity() SecurityType {
-	return p.securityType
+	return p.Type
 }
 
 func (p Security) MarshalJSON() ([]byte, error) {

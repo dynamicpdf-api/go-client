@@ -76,7 +76,11 @@ func (p *TextBarcode) Font() font.Font {
 func (p *TextBarcode) SetFont(font font.Font) {
 	p.font = font
 	p.fontName = font.Name
-	p.resource = font.Resource
+	p.resource = font.FontResource.Resource
+}
+
+func (p *TextBarcode) TextFont() font.Font {
+	return p.font
 }
 
 func (p *TextBarcode) TextFont() font.Font {

@@ -1,5 +1,7 @@
 package element
 
+import "encoding/base64"
+
 // The base class for 2 dimensional bar codes (Aztec, Pdf417, DataMatrixBarcode and QrCode).
 type Dim2 struct {
 	Barcode
@@ -13,7 +15,11 @@ func NewDim2BarcodeWithStringValue(value string, placement elementPlacement, xOf
 }
 
 func NewDim2BarcodeWithByteValue(value []byte, placement elementPlacement, xOffset float32, yOffset float32) *Dim2 {
-	var p = Dim2{Barcode: *NewBarcodeWithStringValue(string(value), placement, xOffset, yOffset)}
+	var p Dim2
 	p.valueType = Base64EncodedBytes
+	p.value = base64.StdEncoding.EncodeToString(value)
+	p.Placement = placement
+	p.XOffset = xOffset
+	p.YOffset = yOffset
 	return &p
 }

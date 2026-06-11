@@ -10,21 +10,31 @@ type RgbColor struct {
 	blue  float32
 }
 
+/*
+Initializes a new instance of the 'RgbColor'
+  - @param {string} color. The color of the RgbColor.
+*/
 func newRgbColor(color string) *RgbColor {
 	var ep RgbColor
 	ep.colorString = color
 	return &ep
 }
+
+/*
+Initializes a new instance of the 'RgbColor'
+  - @param NewRgbColorDefault creates a new instance of RgbColor with default values
+    and returns a pointer to it.
+*/
 func NewRgbColorDefault() *RgbColor {
 	var ep RgbColor
 	return &ep
 }
 
 /*
-  Initializes a new instance of the 'RgbColor' class.
-   * @param {float} red. The red intensity.
-   * @param {float} green. The green intensity.
-   * @param {float} blue. The blue intensity.
+Initializes a new instance of the 'RgbColor' class.
+  - @param {float} red. The red intensity.
+  - @param {float} green. The green intensity.
+  - @param {float} blue. The blue intensity.
 */
 func NewRgbColor(red float32, green float32, blue float32) *RgbColor {
 	var ep RgbColor
@@ -35,10 +45,18 @@ func NewRgbColor(red float32, green float32, blue float32) *RgbColor {
 	return &ep
 }
 
+/*
+Gets the color string.
+  - @return The color string.
+*/
 func (p *RgbColor) RgbColorString() string {
 	return p.colorString
 }
 
+/*
+Sets the color string
+  - @param value The color string
+*/
 func (p *RgbColor) setRgbColorString(value string) {
 	p.colorString = value
 }

@@ -54,7 +54,7 @@ func (p *PageNumbering) Font() font.Font {
 func (p *PageNumbering) SetFont(font font.Font) {
 	p.font = font
 	p.fontName = font.Name
-	p.resource = font.Resource
+	p.resource = font.FontResource.Resource
 }
 
 // Gets the text to display in the label.

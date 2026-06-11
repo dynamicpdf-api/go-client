@@ -99,7 +99,7 @@ func (p *PdfImage) Process() <-chan PdfImageResponse {
 		if p.StartPageNumber > 0 {
 			url.Set("sp", strconv.Itoa(p.StartPageNumber))
 		}
-		if p.StartPageNumber > 0 {
+		if p.PageCount > 0 {
 			url.Set("pc", strconv.Itoa(p.PageCount))
 		}
 
@@ -322,13 +322,13 @@ func postFormRast(form formData, postAuth string, postUrl string) (response, err
 
 	body, e := ioutil.ReadAll(resp.Body)
 
-	if e == nil && err == nil {
-		response.clientError = err
+	if e == nil {
+		response.clientError = e
 		response.isSuccessful = true
 		response.statusCode = resp.StatusCode
 		response.content = bytes.NewBuffer(body)
 	}
-	return response, err
+	return response, e
 }
 
 type formData struct {
