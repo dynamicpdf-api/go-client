@@ -71,6 +71,3 @@ func (p *Text) TextFont() font.Font {
 	return p.font
 }
 
-func (p *Text) TextFont() font.Font {
-	return p.font
-}

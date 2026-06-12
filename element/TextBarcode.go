@@ -83,6 +83,3 @@ func (p *TextBarcode) TextFont() font.Font {
 	return p.font
 }
 
-func (p *TextBarcode) TextFont() font.Font {
-	return p.font
-}
